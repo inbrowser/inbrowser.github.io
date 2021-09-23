@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css"
+          integrity="sha512-F7WyTLiiiPqvu2pGumDR15med0MDkUIo5VTVyyfECR5DZmCnDhti9q5VID02ItWjq6fvDfMaBaDl2J3WdL1uxA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.bundle.min.js"
+            integrity="sha512-PqRelaJGXVuQ81N6wjUrRQelCDR7z8RvKGiR9SbSxKHPIt15eJDmIVv9EJgwq0XvgylszsjzvQ0+VyI2WtIshQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"
+          integrity="sha512-xnP2tOaCJnzp2d2IqKFcxuOiVCbuessxM6wuiolT9eeEJCyy0Vhcwa4zQvdrZNVqlqaxXhHqsSV1Ww7T2jSCUQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>{{ page.title }}</title>
+</head>
+<body class="d-flex flex-column h-100 bg-dark text-light">
+
+<header class="mb-5">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-info">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">InBrowser</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="container-fluid mt-4">
+    {{ content }}
+</main>
+
+<footer class="footer mt-auto py-3 bg-info text-light text-center">
+    <div class="container">
+        Some footer
+    </div>
+</footer>
+</body>
+</html>
