@@ -1,0 +1,68 @@
+<div class="p-3 border-color container fs-5 mt-5">
+    <h3>Fill your matrix</h3>
+
+    <ul class="list-inline">
+        <li class="list-inline-item">
+            <label for="input-columns">Columns</label>
+            <input type="number" id="input-columns" oninput="regenerateMatrix()" value="3"
+                   style="max-width: 50px">
+        </li>
+        <li class="list-inline-item">
+            <label for="input-rows">Rows</label>
+            <input type="number" id="input-rows" oninput="regenerateMatrix()" value="4"
+                   style="max-width: 50px">
+        </li>
+    </ul>
+
+    <div class="d-flex">
+        <div class="table-responsive col-12 justify-content-center">
+            <table class="" id="table"></table>
+        </div>
+    </div>
+    <div class="mt-3 text-end">
+        <button onclick="process()">Submit</button>
+    </div>
+
+    <script>
+        const table = document.getElementById("table")
+        const inputRows = document.getElementById("input-rows")
+        const inputCols = document.getElementById("input-columns")
+
+        function generateMatrix(newHeight, newWidth, value=undefined) {
+            const iterateHeight = Math.max(newHeight, table.rows.length);
+            const iterateWidth = table.colsLength === undefined ? newWidth : Math.max(table.colsLength, newWidth);
+            for (let i = 0; i < iterateHeight; i++) {
+                // create or return row
+                let tr = table.rows[i] === undefined ?  table.insertRow() : table.rows[i];
+                for(let j = 0; j < iterateWidth; j++){
+                    // create or return column
+                    const td = tr.cells[j] === undefined ? tr.insertCell() : tr.cells[j];
+                    if (j >= newWidth) {
+                        // hide
+                        td.hidden = true;
+                    } else if (td.set === undefined) { // already created?
+                        td.innerHTML = `<input type=\"number\" style="width: 50px;" value="">`;
+                        td.set = true;
+                    } else if (td.hidden) {
+                        td.hidden = false;
+                    }
+                    // set value
+                    if (value !== undefined) td.children[0].value = value;
+                }
+                // hide row if needed
+                if (i >= newHeight) {
+                    // hide line
+                    tr.hidden = true;
+                }  else if (tr.hidden) {
+                    tr.hidden = false;
+                }
+            }
+            table.rowsLength = newHeight;
+            table.colsLength = newWidth;
+        }
+        function regenerateMatrix(value=undefined) {
+            generateMatrix(inputRows.value, inputCols.value, value)
+        }
+        regenerateMatrix();
+    </script>
+</div>
