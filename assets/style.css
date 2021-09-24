@@ -44,7 +44,8 @@
 .icon-color { color: var(--icon-color) }
 
 /** color of the border **/
-.border-top-color { color: var(--border-color); }
+.border-color { border: 1px solid var(--border-color); }
+.border-top-color { border-top-color: var(--border-color); }
 
 /** a little box ~ sort of border, below something **/
 .shadow-box-bottom {
