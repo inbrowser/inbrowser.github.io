@@ -1,6 +1,7 @@
 <!doctype html>
-<html lang="en" class="h-100">
+<html lang="en" class="h-100 add-main-bg">
 <head>
+    <link rel="stylesheet" type="text/css" href="../assets/style.css"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Bootstrap -->
@@ -15,14 +16,19 @@
           integrity="sha512-xnP2tOaCJnzp2d2IqKFcxuOiVCbuessxM6wuiolT9eeEJCyy0Vhcwa4zQvdrZNVqlqaxXhHqsSV1Ww7T2jSCUQ=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <link href="{{ 'assets/style.css' | relative_url }}" rel="stylesheet">
+
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+
     <title>{{ page.title }}</title>
 </head>
-<body class="d-flex flex-column h-100" style="background: linear-gradient(0deg, #ffffff 0%, #5f8eab 100%) no-repeat fixed;background-size: cover;">
+<body class="d-flex flex-column h-100 add-main-bg">
 
 <header class="mb-5">
-    <nav class="navbar navbar-expand-md navbar-dark text-black shadow-sm">
+    <nav class="navbar navbar-expand-md shadow-box-bottom">
         <div class="container-fluid">
-            <a class="navbar-brand text-black fs-4" href="#">InBrowser.run</a>
+            <a class="navbar-brand text-color fs-4" href="#">InBrowser.run</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -36,7 +42,7 @@
     <div class="container position-relative">
         <div class="row justify-content-center">
             <div class="col-xl-8">
-                <div class="text-center">
+                <div class="text-center text-color">
                     <h1 class=""><b>InBrowser</b><br>Tools running in your browser, no server, free, and open-source!</h1>
                 </div>
             </div>
@@ -44,7 +50,7 @@
     </div>
     <section class="mt-5 features-icons mb-5 text-center">
         <div class="container">
-            <div class="row fs-5">
+            <div class="row fs-5 text-color">
                 {% include _partial/index_card.html title="Open Source"
                 content="The code is hosted on <a href='https://github.com/inbrowser/'
                 target='_blank' rel='noopener noreferrer' class='text-dark'>GitHub</a>, both the website and the tools."
@@ -68,10 +74,10 @@
     </section>
 </main>
 
-<footer class="footer mt-auto py-3 shadow border text-center">
+<footer class="footer mt-auto py-3 shadow border-top-color border-top text-center">
     <div class="container px-5">
         <div class="small">
-            <div class="text-black-50 mb-2">&copy; InBrowser. All Rights Reserved.</div>
+            <div class="text-muted-color mb-2">&copy; InBrowser. All Rights Reserved.</div>
         </div>
     </div>
 </footer>

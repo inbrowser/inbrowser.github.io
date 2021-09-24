@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+/** Set the style according to the color scheme **/
+:root {
+    --gradient-top: #5f8eab;
+    --gradient-bottom: #fff;
+    --text-color: #000;
+    --text-muted-color: rgba(0, 0, 0, 0.5);
+    --icon-color: #000;
+    --border-color: #000;
+    --shadow-box-color: rgba(0, 0, 0, 0.075);
+}
+
+/*@media (prefers-color-scheme: dark) {*/
+/*    :root {*/
+/*        --gradient-top: #000;*/
+/*        --gradient-bottom: #000;*/
+/*        --text-color: #fff;*/
+/*        --text-muted-color: rgba(255, 255, 255, 0.5);*/
+/*        --icon-color: #FC3;*/
+/*        --border-color: #fff;*/
+/*        --shadow-box-color: rgba(255, 255, 255, 0.375);*/
+/*    }*/
+/*}*/
+
+/** add the gradient background **/
+.add-main-bg {
+    background: linear-gradient(0deg, var(--gradient-bottom) 0%, var(--gradient-top) 100%) 0 0 / cover no-repeat fixed; }
+
+/** color of the text **/
+.text-color { color: var(--text-color); }
+.text-muted-color { color: var(--text-muted-color); }
+
+/** color of our icons **/
+.icon-color { color: var(--icon-color) }
+
+/** color of the border **/
+.border-top-color { color: var(--border-color); }
+
+/** a little box ~ sort of border, below something **/
+.shadow-box-bottom {
+    box-shadow: 0 0.125rem 0.25rem var(--shadow-box-color) !important; }

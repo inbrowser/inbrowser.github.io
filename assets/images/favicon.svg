@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="1000" height="1000"><rect width="1000" height="1000" rx="200" ry="200" fill="#555555" data-darkreader-inline-fill="" style="--darkreader-inline-fill:#3a3e41;"></rect><g transform="matrix(1.5625,0,0,1.5625,99.99999570846558,99.99943780899048)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<!-- left -->
+	<path style="fill: rgb(255, 198, 27); --darkreader-inline-fill:#e6b628;" d="M375.811,136.189v126.407c0,33.559-15.801,65.16-42.648,85.297L256,405.764l-77.164-57.873
+	c-26.848-20.135-42.648-51.736-42.648-85.295V136.189L256,106.236L375.811,136.189z" data-darkreader-inline-fill=""></path>
+	<!-- right -->
+	<path style="fill: rgb(255, 198, 27); --darkreader-inline-fill:#e6b628;" d="M256,106.236l-1.148,0.288v298.38l1.148,0.862l77.164-57.873
+	c26.846-20.137,42.648-51.738,42.648-85.297V136.189L256,106.236z" data-darkreader-inline-fill=""></path>
+<!-- top left -->
+<polygon style="" points="256,106.236 136.189,136.189 136.189,166.141 256,136.189 375.811,166.141 375.811,136.189
+	"></polygon>
+<!-- top right -->
+<polygon style="" points="256,106.236 254.852,106.524 254.852,136.476 256,136.189 375.811,166.141 375.811,136.189
+	"></polygon>
+<!-- crochet left -->
+<path d="M293.71,226.047h-15.515v-29.953c0-12.24-9.956-22.195-22.195-22.195s-22.195,9.956-22.195,22.195
+	v29.953H218.29v-29.953c0-20.794,16.917-37.71,37.71-37.71s37.71,16.917,37.71,37.71V226.047z"></path>
+	<!-- crochet right -->
+	<path d="M256,158.384c-0.384,0-0.765,0.017-1.148,0.029v15.544c0.383-0.019,0.76-0.059,1.148-0.059
+	c12.24,0,22.195,9.956,22.195,22.195v29.953h15.515v-29.953C293.71,175.301,276.792,158.384,256,158.384z"></path>
+	<!-- crochet bas g -->
+	<path d="M219.51,313.637h72.978c12.933,0,23.416-10.485,23.416-23.416v-66.443H196.093v66.443
+	C196.094,303.152,206.577,313.637,219.51,313.637z"></path>
+	<!-- crochet bas d -->
+<path d="M254.852,223.778v89.859h37.638c12.933,0,23.416-10.485,23.416-23.416v-66.443L254.852,223.778
+	L254.852,223.778z"></path>
+<text fill="#ffffff" stroke="#000000" stroke-width="0" x="250" y="245" id="svg_5" font-size="25" font-family="Monospace" text-anchor="middle" xml:space="preserve" transform="matrix(0.801323 0 0 1.40909 54.9975 -65.2984)" fill-opacity="1" stroke-opacity="1" data-darkreader-inline-fill="" data-darkreader-inline-stroke="" style="--darkreader-inline-fill:#d1cfcc; --darkreader-inline-stroke:#7e7568;" svgjs:data="{&quot;leading&quot;:&quot;1.3&quot;}">InBrowser</text>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg></svg></g></svg>
