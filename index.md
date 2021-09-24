@@ -3,9 +3,37 @@ title: InBrowser
 layout: default
 ---
 
-## {{ "Hello World!" | downcase }}
+<div class="container position-relative">
+    <div class="row justify-content-center">
+        <div class="col-xl-8">
+            <div class="text-center text-color">
+                <h1 class=""><b>InBrowser</b><br>Tools running in your browser, no server, free, and open-source!</h1>
+            </div>
+        </div>
+    </div>
+</div>
 
-<script src="https://cdn.jsdelivr.net/gh/inbrowser/pima-1-2021/dist/seo.bundle.js">
-</script>
-
-[another page](/matrix/index.html)
+<section class="mt-5 features-icons mb-5 text-center">
+    <div class="container">
+        <div class="row fs-5 text-color">
+            {% include _partial/index_card.html title="Open Source"
+                content="The code is hosted on <a href='https://github.com/inbrowser/'
+                target='_blank' rel='noopener noreferrer' class='text-dark'>GitHub</a>, both the website and the tools."
+                icon="github"
+                %}
+                {% include _partial/index_card.html title="Privacy" content="Everything is happening in your browser. We are not using cookies or trackers." icon="shield-lock" %}
+                {% include _partial/index_card.html title="No ads, free" content="We won't ask you to pay a fee or putting ads everywhere." icon="mailbox" %}
+                {% include _partial/index_card.html title="Complete"
+                content="We will show you the complete solution. No register. No \"disable AdBlock to see the steps\"."
+                icon="gift" %}
+                {% include _partial/index_card.html title="User friendly"
+                content="We are putting ourselves in your shoes and making
+                tools that are usable and convenient to use. We are open to suggestions and ways to improve."
+                icon="heart" %}
+                {% include _partial/index_card.html title="Documented"
+                content="We are writing tests and documentation before coding. We are hoping to make the code as readable and clean as possible,
+                in case you are curious as to how we coded something."
+                icon="info-circle-fill" %}
+            </div>
+        </div>
+</section>
