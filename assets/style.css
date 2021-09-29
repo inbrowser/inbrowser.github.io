@@ -18,7 +18,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --gradient-top: #000;
-        --gradient-bottom: #000;
+        --gradient-bottom: #3f3e3e;
         --text-color: #fff;
         --text-muted-color: rgba(255, 255, 255, 0.8);
         --icon-color: #FC3;

@@ -10,8 +10,116 @@ Fill the matrix
 -->
 {% include _math/input_matrix.html %}
 
+<script src="https://cdn.jsdelivr.net/gh/inbrowser/pima-1-2021/dist/matrix.bundle.js"></script>
 <script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['@', '@'], ['\\[', '\\]']],
+        }
+    };
+</script>
+
+<script id="MathJax-script" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.min.js"
+        integrity="sha512-9DkJEmXbL/Tdj8b1SxJ4H2p3RCAXKsu8RqbznEjhFYw0cFIWlII+PnGDU2FX3keyE9Ev6eFaDPyEAyAL2cEX0Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div class="p-3 border-color container fs-5 mt-5" id="result" hidden>
+    <h3>Result</h3>
+    <div id="results-div">
+
+    </div>
+</div>
+
+<script>
+    /*
+    CLEAN THIS CODE
+     */
+
+    function matrixToLatex(matrix) {
+        let latex = "";
+        for (const rows of matrix) {
+            if (Array.isArray(rows)) {
+                for (const col of rows) {
+                    latex += col+"&";
+                }
+                latex += "\\\\";
+            } else { // vector
+                latex += rows+"\\\\";
+            }
+        }
+        return "\\begin{pmatrix}"+latex+"\\end{pmatrix}";
+    }
+    
     function process() {
-        alert("not yet")
+        let data = [];
+        for (let i = 0; i < table.rowsLength; i++) {
+            // create or return row
+            let tr = table.rows[i];
+            if (tr.hidden) continue;
+            data.push([]);
+            for(let j = 0; j < table.colsLength; j++){
+                const td = tr.cells[j];
+                if (td.hidden) continue;
+                const value = td.children[0].value;
+                data[i].push(value === '' ? 0 : value);
+            }
+        }
+
+        let results = document.getElementById("result");
+        let results_div = document.getElementById("results-div");
+        let json = inbrowser.lu_factorization(data)
+
+        // show
+        results.hidden = false;
+        results_div.innerHTML = '';
+
+        if (json == null) {
+            // clean
+            results_div.innerHTML = '<p>Unknown error: no result.</p>';
+        } else {
+            let div = document.createElement('div');
+
+            if (json.result == null) {
+                div.innerHTML = `The following error occurred: ${json.error_message}`;
+            } else {
+                let solution = `<p>
+                @L = ${matrixToLatex(json.result.L)}@
+                @U = ${matrixToLatex(json.result.U)}@
+                @X = ${matrixToLatex(json.result.X)}@
+            </p>`;
+                // show the steps
+                if (json.steps != null) {
+                    solution += `<hr>`
+                    let i = 1;
+                    for (const step of json.steps) {
+                        let content = "<br>";
+                        // sub steps
+                        if (step.steps) {
+                            content += "<ul>";
+                            for (const subStep of step.steps) {
+                                content += "@"+subStep.math+"@"
+                            }
+                            content += "</ul>";
+                        }
+                        // check done
+                        let note = "";
+                        if (step.done !== undefined && step.done === false) {
+                            note = `<b class="text-danger ps-3">failed</b>`
+                        } else {
+                            note = `<small class="text-success ps-3">passed</small>`
+                        }
+
+                        solution += `<details class="h5"><summary>${i}. ${step.text}${note}</summary>${content}</details>`
+                        i++;
+                    }
+                }
+                results_div.innerHTML = solution;
+            }
+
+            results_div.appendChild(div);
+            MathJax.typesetPromise();
+        }
     }
 </script>
