@@ -38,5 +38,10 @@
         const inputCols = document.getElementById("input-columns-"+modifier)
         generateMatrix(table, inputRows.value, inputCols.value, value)
     }
+    function regenerateSquareMatrix(modifier="", value="") {
+        const table = document.getElementById("matrix-"+modifier)
+        const size = document.getElementById("size-"+modifier)
+        generateMatrix(table, size.value, size.value, value)
+    }
 </script>
 {% endif %}

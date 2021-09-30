@@ -1,5 +1,5 @@
 ---
-title: LU factorization - Matrix-related tools
+title: Inverse - Matrix-related tools
 layout: default
 ---
 
@@ -8,22 +8,9 @@ layout: default
 <!--
 SUBMIT DATA
 - A
-- b
-- showSteps
 -->
 <div class="p-3 border-color container fs-5 mt-5">
-    <div class="row">
-        <div class="col">
-            {% include _math/input_matrix.html modifier="A" generate="true" square_matrix="true" %}
-        </div>
-        <div class="col">
-            {% include _math/input_vector.html modifier="b" %}
-        </div>
-    </div>
-    <label class="mt-3 text-color">
-        <input type="checkbox" id="show_steps" checked>
-        Show steps (slower)
-    </label>
+    {% include _math/input_matrix.html modifier="A" generate="true" square_matrix="true" %}
 
     <div class="mt-3 text-end">
         <button onclick="process()">Submit</button>
@@ -43,7 +30,7 @@ SUBMIT DATA
 <!--
 PRINT API RESULT
 -->
-<div class="p-3 border-color text-color container fs-5 mt-5" id="result" hidden>
+<div class="p-3 border-color container fs-5 mt-5" id="result" hidden>
     <h3>Result</h3>
     <div id="results-div">
     </div>
