@@ -1,0 +1,42 @@
+{% if include.generate == "true" %}
+<script>
+    function generateMatrix(table, newHeight, newWidth, value=undefined) {
+        const iterateHeight = Math.max(newHeight, table.rows.length);
+        const iterateWidth = table.colsLength === undefined ? newWidth : Math.max(table.colsLength, newWidth);
+        for (let i = 0; i < iterateHeight; i++) {
+            // create or return row
+            let tr = table.rows[i] === undefined ?  table.insertRow() : table.rows[i];
+            for(let j = 0; j < iterateWidth; j++){
+                // create or return column
+                const td = tr.cells[j] === undefined ? tr.insertCell() : tr.cells[j];
+                if (j >= newWidth) {
+                    // hide
+                    td.hidden = true;
+                } else if (td.set === undefined) { // already created?
+                    td.innerHTML = `<input type=\"number\" style="width: 50px;" value="">`;
+                    td.set = true;
+                } else if (td.hidden) {
+                    td.hidden = false;
+                }
+                // set value
+                if (value !== undefined) td.children[0].value = value;
+            }
+            // hide row if needed
+            if (i >= newHeight) {
+                // hide line
+                tr.hidden = true;
+            }  else if (tr.hidden) {
+                tr.hidden = false;
+            }
+        }
+        table.rowsLength = newHeight;
+        table.colsLength = newWidth;
+    }
+    function regenerateMatrix(modifier="", value="") {
+        const table = document.getElementById("matrix-"+modifier)
+        const inputRows = document.getElementById("input-rows-"+modifier)
+        const inputCols = document.getElementById("input-columns-"+modifier)
+        generateMatrix(table, inputRows.value, inputCols.value, value)
+    }
+</script>
+{% endif %}

@@ -5,16 +5,13 @@ ASK FOR THE SIZE
 -->
 <ul class="list-inline">
     <li class="list-inline-item">
-        <label for="input-columns-{{ include.modifier }}">Columns</label>
-        <input type="number" id="input-columns-{{ include.modifier }}" oninput="regenerateMatrix('{{ include.modifier }}')" value="3"
-               style="max-width: 50px">
-    </li>
-    <li class="list-inline-item">
         <label for="input-rows-{{ include.modifier }}">Rows</label>
         <input type="number" id="input-rows-{{ include.modifier }}" oninput="regenerateMatrix('{{ include.modifier }}')" value="4"
                style="max-width: 50px">
     </li>
 </ul>
+
+<input hidden type="number" id="input-columns-{{ include.modifier }}" value="1">
 
 <div class="d-flex">
     <div class="table-responsive col-12 justify-content-center">
