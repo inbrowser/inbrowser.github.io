@@ -1,0 +1,46 @@
+---
+title: Product of two matrices - Matrix-related tools
+layout: default
+---
+
+<h1 class="text-center text-color">{{ page.title }}</h1>
+
+<!--
+SUBMIT DATA
+- A
+- b
+- showSteps
+-->
+<div class="p-3 border-color container fs-5 mt-5">
+    {% include _math/input_matrix.html modifier="A" generate="true" %}
+    <br>
+    {% include _math/input_matrix.html modifier="B" %}
+
+    <div class="mt-3 text-end">
+        <button onclick="process()">Submit</button>
+    </div>
+</div>
+
+<!--
+SUBMIT DATA
+-->
+<script src="/assets/scripts/matrix.bundle.js" type="application/javascript"></script>
+<script>
+    function process() {
+        alert('not yet')
+    }
+</script>
+
+<!--
+PRINT API RESULT
+-->
+<div class="p-3 border-color container fs-5 mt-5" id="result" hidden>
+    <h3>Result</h3>
+    <div id="results-div">
+    </div>
+</div>
+
+<!--
+LOAD MATHJAX
+-->
+{% include mathjax.html %}
