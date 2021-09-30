@@ -15,21 +15,21 @@
     --link-hover-color: rgba(0, 0, 0, 0.6);
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --gradient-top: #000;
-        --gradient-bottom: #3f3e3e;
-        --text-color: #fff;
-        --text-muted-color: rgba(255, 255, 255, 0.8);
-        --icon-color: #FC3;
-        --border-color: #fff;
-        --shadow-box-color: rgba(255, 255, 255, 0.375);
-        --toggler-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        --toggler-color: rgba(255,255,255,.55);
-        --toggler-border: rgba(255,255,255,.1);
-        --link-hover-color: rgba(255, 255, 255, 0.7);
-    }
-}
+/*@media (prefers-color-scheme: dark) {*/
+/*    :root {*/
+/*        --gradient-top: #000;*/
+/*        --gradient-bottom: #3f3e3e;*/
+/*        --text-color: #fff;*/
+/*        --text-muted-color: rgba(255, 255, 255, 0.8);*/
+/*        --icon-color: #FC3;*/
+/*        --border-color: #fff;*/
+/*        --shadow-box-color: rgba(255, 255, 255, 0.375);*/
+/*        --toggler-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");*/
+/*        --toggler-color: rgba(255,255,255,.55);*/
+/*        --toggler-border: rgba(255,255,255,.1);*/
+/*        --link-hover-color: rgba(255, 255, 255, 0.7);*/
+/*    }*/
+/*}*/
 
 /** add the gradient background **/
 .add-main-bg {
