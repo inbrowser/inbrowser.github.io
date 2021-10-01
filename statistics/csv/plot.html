@@ -10,14 +10,12 @@ layout: default
 
     <input type="file" name="upload" oninput="process()">
 
+    {% include upload_csv.html %}
+
     <script>
-        function process() {
-            // https://web.dev/read-files/
-            // let file = document.querySelector("input").files[0]
-            // const reader = new FileReader();
-            // reader.readAsDataURL(file);
-            // reader.result // read this
-            alert('not yet')
+        async function process() {
+            const csv = await parseCSVToJson("input")
+            console.log(csv)
         }
     </script>
 </div>
