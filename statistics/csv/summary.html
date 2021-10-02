@@ -6,21 +6,40 @@ layout: default
 <h1 class="text-center text-color">{{ page.title }}</h1>
 
 <div class="p-3 border-color container fs-5 mt-5">
-    <p>Please, select a CSV</p>
+    <h5 class="h4 pb-3">Please, select a CSV</h5>
 
     <input type="file" name="upload">
 
-    <ul class="pt-3">
-        <li><label><input type="checkbox" class="options" id="empirical_mean" checked> Empirical mean</label></li>
-        <li><label><input type="checkbox" class="options" id="empirical_variance" checked> Empirical variance</label></li>
-        <li><label><input type="checkbox" class="options" id="empirical_std_deviation" checked> Empirical square deviation</label></li>
-    </ul>
+    <details class="mt-3 border-color p-3">
+        <summary>Options</summary>
 
-    <p>
-        <label>
-            <input id="have_header" type="checkbox" checked> I have a <b>header</b> (first line=column's names)
-        </label>
-    </p>
+        <table class="table border-color table-bordered table-striped mt-3">
+            <tr>
+                <td>Compute</td>
+                <td>
+                    <ul class="pt-3 list-unstyled">
+                        <li><label><input type="checkbox" class="options" id="empirical_mean" checked> Empirical mean</label></li>
+                        <li><label><input type="checkbox" class="options" id="empirical_variance" checked> Empirical variance</label></li>
+                        <li><label><input type="checkbox" class="options" id="empirical_std_deviation" checked> Empirical square deviation</label></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="have_header">The first line is the name of the columns</label></td>
+                <td><input id="have_header" type="checkbox" checked></td>
+            </tr>
+            <tr>
+                <td><label for="delimiter">Separator</label></td>
+                <td><select id="delimiter">
+                    <option name="">autodetect</option>
+                    <option name=" ">space</option>
+                    <option name=",">comma (,)</option>
+                    <option name=";">semi-colon  (;)</option>
+                    <option name=":">colon  (;)</option>
+                </select></td>
+            </tr>
+        </table>
+    </details>
 
     <div class="mt-3 text-end">
         <button onclick="process()">Submit</button>
@@ -30,11 +49,14 @@ layout: default
     {% include _lib/statistics.html %}
 
     <script>
+        const delimiter = document.querySelector('#delimiter')
+
         async function process() {
-            const csv = await parseCSVToJson("input");
-            // todo: handle this better
+            let sep = delimiter.selectedOptions.item(0).getAttribute('name');
+            const csv = await parseCSVToJson("input", sep);
             if (csv.data == null) {
-                alert('csv missing');
+                results.hidden = false;
+                results_div.innerHTML = 'CSV missing';
                 return;
             }
 
@@ -57,8 +79,6 @@ layout: default
             }
 
             let res = inbrowser_statistics.getSummary(csv.data, options);
-            let results = document.getElementById("result");
-            let results_div = document.getElementById("results-div");
             // show
             results.hidden = false;
             results_div.innerHTML = '';
@@ -92,7 +112,6 @@ layout: default
                 }
                 results_div.innerHTML = `<table class="table border-color table-bordered table-striped"><thead><tr>${columns}</tr></thead><tbody>${body}</tbody></table>`
             } catch (e) {
-                console.log(e)
                 results_div.innerHTML = 'Dataset is empty.';
             }
         }
@@ -111,3 +130,8 @@ layout: default
 </div>
 
 {% include _partial/results_div.html %}
+
+<script>
+    const results = document.getElementById("result");
+    const results_div = document.getElementById("results-div");
+</script>
