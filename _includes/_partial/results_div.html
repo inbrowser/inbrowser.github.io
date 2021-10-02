@@ -1,0 +1,15 @@
+<!--
+USED TO PRINT API RESULT
+-->
+<div class="p-3 border-color text-color container fs-5 mt-5" id="result" hidden>
+    <h3>Result</h3>
+    <div id="results-div">
+    </div>
+</div>
+
+{% if include.mathjax == "true" %}
+<!--
+LOAD MATHJAX
+-->
+{% include mathjax.html %}
+{% endif %}
