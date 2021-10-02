@@ -2,17 +2,18 @@
 
 /** Set the style according to the color scheme **/
 :root {
-    --gradient-top: #5f8eab;
-    --gradient-bottom: #fff;
+    --gradient-top: #000;
+    --gradient-bottom: #3f3e3e;
+    --background-color: #c3c6ce;
     --text-color: #000;
-    --text-muted-color: rgba(0, 0, 0, 0.5);
-    --icon-color: #000;
+    --text-muted-color: rgba(0, 0, 0, 0.8);
+    --icon-color: #396797;
     --border-color: #000;
-    --shadow-box-color: rgba(0, 0, 0, 0.075);
-    --toggler-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    --shadow-box-color: rgba(0, 0, 0, 0.375);
+    --toggler-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     --toggler-color: rgba(0,0,0,.55);
     --toggler-border: rgba(0,0,0,.1);
-    --link-hover-color: rgba(0, 0, 0, 0.6);
+    --link-hover-color: rgba(0, 0, 0, 0.7);
 }
 
 /*@media (prefers-color-scheme: dark) {*/
@@ -33,7 +34,8 @@
 
 /** add the gradient background **/
 .add-main-bg {
-    background: linear-gradient(0deg, var(--gradient-bottom) 0%, var(--gradient-top) 100%) 0 0 / cover no-repeat fixed; }
+    background: var(--background-color);
+}
 
 /** color of the text **/
 .text-color { color: var(--text-color); }
@@ -46,6 +48,7 @@
 /** color of the border **/
 .border-color { border: 1px solid var(--border-color); }
 .border-top-color { border-top-color: var(--border-color); }
+.border-top-color-i { border-top-color: var(--border-color) !important; }
 
 /** a little box ~ sort of border, below something **/
 .shadow-box-bottom {

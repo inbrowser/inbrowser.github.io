@@ -5,25 +5,25 @@ layout: default
 
 <h1 class="text-center text-color">{{ page.title }}</h1>
 
-<div class="p-3 border-color text-color container fs-5 mt-5">
+<div class="p-3 border-color container fs-5 mt-5">
     <!-- enter function -->
     <div class="row">
         <div class="col form-control bg-transparent border-0">
-            <label for="function" class="pb-3 fs-5">Your function</label>
+            <label for="function" class="pb-3 fs-5 text-color">Your function</label>
             <input type="text" value="x^2" id="function" class="form-control mathjax_process" oninput="updatePreview()">
         </div>
         <div class="col form-control bg-transparent border-0">
-            <label for="function-review" class="pb-3 fs-5">Preview</label>
+            <label for="function-review" class="pb-3 fs-5 text-color">Preview</label>
             <p id="function-review" class="form-control" style="opacity: 0.8;"></p>
         </div>
     </div>
 
-    <hr>
+    <hr class="text-color">
 
-    <button class="btn border-color" onclick="updateVariableFields(true)">Add variable</button>
-    <button class="btn border-color" onclick="updateVariableFields(false)">Remove variable</button>
+    <button class="btn border-color text-color" onclick="updateVariableFields(true)">Add variable</button>
+    <button class="btn border-color text-color" onclick="updateVariableFields(false)">Remove variable</button>
 
-    <ul class="pt-3" id="variables">
+    <ul class="pt-3 text-color" id="variables">
         <li><label>Variable name: <input type="text" class="px-2" value="x"></label> =
             <label><input type="text" value="5"></label></li>
     </ul>
