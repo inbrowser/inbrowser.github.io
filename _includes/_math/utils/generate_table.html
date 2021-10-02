@@ -43,5 +43,24 @@
         const size = document.getElementById("size-"+modifier)
         generateMatrix(table, size.value, size.value, value)
     }
+    function tableToArray(table) {
+        let array = [];
+        for (const row of table.rows) {
+            if (row.hidden) continue;
+
+            let rowArray = [];
+            for (const cell of row.cells) {
+                let value = cell.children[0].value;
+                // empty => '0'
+                if (value === '') { value = '0' }
+                value = Number(value);
+                // NaN => 0
+                if (Number.isNaN(value)) value = 0;
+                rowArray.push(value);
+            }
+            array.push(rowArray);
+        }
+        return array;
+    }
 </script>
 {% endif %}

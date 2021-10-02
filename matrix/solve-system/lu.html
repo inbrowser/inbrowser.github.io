@@ -35,8 +35,16 @@ SUBMIT DATA
 -->
 <script src="/assets/scripts/matrix.bundle.js" type="application/javascript"></script>
 <script>
+    const matrix_A = document.querySelector('#matrix-A');
+    const vector_b = document.querySelector('#matrix-b');
+    const show_steps_option = document.querySelector('#show_steps');
+
     function process() {
-        alert('not yet')
+        let A = tableToArray(matrix_A);
+        let b = tableToArray(vector_b);
+        let show_steps = show_steps_option.checked;
+        // ...
+        alert('not yet :(')
     }
 </script>
 

@@ -20,10 +20,3 @@ Then, open this project in WebStorm.
 * In terminal, use the dropdown icon and select "ubuntu"
 * run: `bundle exec jekyll serve`
 * available at: http://localhost:4000/
-
-<hr>
-
-## Features
-
-* Switch to light/dark mode according to the mode used by the user in its browser
-* Responsive
