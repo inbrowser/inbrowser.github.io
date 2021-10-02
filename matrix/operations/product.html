@@ -11,9 +11,14 @@ SUBMIT DATA
 - B
 -->
 <div class="p-3 border-color container fs-5 mt-5">
-    {% include _math/input_matrix.html modifier="A" generate="true" %}
-    <br>
-    {% include _math/input_matrix.html modifier="B" %}
+    <div class="row">
+        <div class="col">
+            {% include _math/input_matrix.html modifier="A" generate="true" %}
+        </div>
+        <div class="col">
+            {% include _math/input_matrix.html modifier="B" %}
+        </div>
+    </div>
 
     <div class="mt-3 text-end">
         <button onclick="process()">Submit</button>
