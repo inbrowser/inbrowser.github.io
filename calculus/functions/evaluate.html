@@ -44,6 +44,7 @@ layout: default
             let li_tags = inputFields.children;
             let variables = {}
             for (const tags of li_tags) {
+                if (tags.hidden) continue;
                 variables[tags.children[0].children[0].value] =
                     tags.children[1].children[0].value
             }
@@ -51,8 +52,8 @@ layout: default
             let json = inbrowser_calculus.evaluate_function(function_field.value, variables)
             results.hidden = false;
             // show
-            if (json.result == null) {
-                results_div.innerHTML = json.error;
+            if (json.result === undefined || json.result == null) {
+                results_div.innerHTML = json.error ?? "Invalid input.";
             } else {
                 results_div.innerHTML = `The result is <b>${json.result}</b>!`;
             }
