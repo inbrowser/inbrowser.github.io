@@ -32,18 +32,38 @@ layout: default
         <button onclick="process()">Submit</button>
     </div>
 
+    {% include _lib/calculus.html %}
+
     <script>
         const function_field = document.querySelector('#function')
         const function_preview = document.querySelector('#function-review')
         const inputFields = document.querySelector('#variables')
 
         function process() {
-            alert('not yet')
+            // parse parameters
+            let li_tags = inputFields.children;
+            let variables = {}
+            for (const tags of li_tags) {
+                variables[tags.children[0].children[0].value] =
+                    tags.children[1].children[0].value
+            }
+            // get result
+            let json = inbrowser_calculus.evaluate_function(function_field.value, variables)
+            results.hidden = false;
+            // show
+            if (json.result == null) {
+                results_div.innerHTML = json.error;
+            } else {
+                results_div.innerHTML = `The result is <b>${json.result}</b>!`;
+            }
         }
     </script>
 </div>
 
 <script>
+    /**
+     * Add/Remove variables
+     */
     function updateVariableFields(increase=true) {
         let real_number_of_elements = inputFields.children.length;
         let number_of_elements = 0
@@ -81,6 +101,9 @@ layout: default
 Preview
 -->
 <script>
+    /**
+     * Update the preview
+     */
     function updatePreview() {
         function_preview.innerHTML = `\\[${function_field.value}\\]`
         // too soon, unneeded
