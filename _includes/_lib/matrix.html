@@ -1,0 +1,27 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.0/math.min.js"
+        integrity="sha512-Z9DgvL2T24HL74k7S82opTTyrNPLtqYGsWHF93nvwJGkT6HheCD9nWCiduC+YtdoK7HQMhRbcZIuwrCCEEj6rw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    const Mathjs = math;
+
+    function matrixToLatex(matrix) {
+        let latex = "";
+        for (const rows of matrix) {
+            if (Array.isArray(rows)) {
+                let max = rows.length;
+                for (let i = 0; i < max; i++) {
+                    let col = rows[i];
+                    if (i + 1 < max) latex += col+"&";
+                    else latex += col;
+                }
+                latex += "\\\\";
+            } else { // vector
+                latex += rows+"\\\\";
+            }
+        }
+        return "\\begin{pmatrix}"+latex+"\\end{pmatrix}";
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/inbrowser/pima-1-2021/dist/matrix.bundle.js"></script>

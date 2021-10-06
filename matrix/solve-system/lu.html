@@ -20,31 +20,47 @@ SUBMIT DATA
             {% include _math/input_vector.html modifier="b" %}
         </div>
     </div>
-    <label class="mt-3 text-color">
-        <input type="checkbox" id="show_steps" checked>
-        Show steps (slower)
-    </label>
+<!--    <label class="mt-3 text-color">-->
+<!--        <input type="checkbox" id="show_steps" checked>-->
+<!--        Show steps (slower)-->
+<!--    </label>-->
 
     <div class="mt-3 text-end">
         <button onclick="process()">Submit</button>
     </div>
 </div>
 
-<!--
-SUBMIT DATA
--->
-<script src="/assets/scripts/matrix.bundle.js" type="application/javascript"></script>
+{% include _lib/matrix.html %}
+
 <script>
     const matrix_A = document.querySelector('#matrix-A');
     const vector_b = document.querySelector('#matrix-b');
-    const show_steps_option = document.querySelector('#show_steps');
+    // const show_steps_option = document.querySelector('#show_steps');
 
     function process() {
-        let A = tableToArray(matrix_A);
-        let b = tableToArray(vector_b);
-        let show_steps = show_steps_option.checked;
-        // ...
-        alert('not yet :(')
+        let A_array = tableToArray(matrix_A);
+        let b_vector = tableToArray(vector_b);
+        // let show_steps = show_steps_option.checked;
+        let A = inbrowser_matrix.createMatrix(A_array.flat(), A_array.length, A_array.length)
+        try {
+            let json = inbrowser_matrix.lu_factorization(A, b_vector)
+            if (json.result != null) {
+                results.hidden = false;
+                console.log(json.result)
+                results_div.innerHTML = `<p>
+                @L = ${matrixToLatex(json.result.L)}@
+                @U = ${matrixToLatex(json.result.U)}@
+                @X = ${matrixToLatex(json.result.X)}@
+            </p>`
+                MathJax.typesetPromise();
+            } else {
+                results.hidden = false;
+                results_div.innerHTML = json.error;
+            }
+        } catch (e) {
+            results.hidden = false;
+            results_div.innerHTML = e.message;
+        }
     }
 </script>
 
