@@ -34,10 +34,10 @@ ASK FOR THE SIZE
 
 {% if include.square_matrix == "true" %}
 <script>
-    regenerateSquareMatrix("{{ include.modifier }}");
+    regenerateSquareMatrix("{{ include.modifier }}", "");
 </script>
 {% else %}
 <script>
-    regenerateMatrix("{{ include.modifier }}");
+    regenerateMatrix("{{ include.modifier }}", "");
 </script>
 {% endif %}

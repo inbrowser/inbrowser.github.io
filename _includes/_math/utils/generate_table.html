@@ -32,13 +32,13 @@
         table.rowsLength = newHeight;
         table.colsLength = newWidth;
     }
-    function regenerateMatrix(modifier="", value="") {
+    function regenerateMatrix(modifier="", value=undefined) {
         const table = document.getElementById("matrix-"+modifier)
         const inputRows = document.getElementById("input-rows-"+modifier)
         const inputCols = document.getElementById("input-columns-"+modifier)
         generateMatrix(table, inputRows.value, inputCols.value, value)
     }
-    function regenerateSquareMatrix(modifier="", value="") {
+    function regenerateSquareMatrix(modifier="", value=undefined) {
         const table = document.getElementById("matrix-"+modifier)
         const size = document.getElementById("size-"+modifier)
         generateMatrix(table, size.value, size.value, value)
