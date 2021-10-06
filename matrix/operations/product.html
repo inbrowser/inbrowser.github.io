@@ -28,28 +28,34 @@ SUBMIT DATA
 <!--
 SUBMIT DATA
 -->
-<script src="/assets/scripts/matrix.bundle.js" type="application/javascript"></script>
+{% include _lib/matrix.html %}
+
 <script>
     const matrix_A = document.querySelector('#matrix-A');
-    const matrix_B = document.querySelector('#matrix-A');
+    const matrix_B = document.querySelector('#matrix-B');
 
     function process() {
-        let A = tableToArray(matrix_A);
-        let B = tableToArray(matrix_B);
-        alert('not yet')
+        const A_array = tableToArray(matrix_A);
+        const B_array = tableToArray(matrix_B);
+
+        const A = inbrowser_matrix.createMatrix(A_array.flat(), matrix_A.colsLength, matrix_A.rowsLength)
+        const B = inbrowser_matrix.createMatrix(B_array.flat(), matrix_B.colsLength, matrix_B.rowsLength)
+
+        const json = inbrowser_matrix.matrix_product(A, B)
+
+        console.log(A_array)
+        console.log(B_array)
+
+        // show result
+        results.hidden = false;
+        if (json.result != null) {
+            console.log(json.result.toArray())
+            results_div.innerHTML = `<p>@A * B = ${matrixToLatex(json.result.toArray())}@</p>`
+            MathJax.typesetPromise();
+        } else {
+            results_div.innerHTML = json.error;
+        }
     }
 </script>
 
-<!--
-PRINT API RESULT
--->
-<div class="p-3 border-color container fs-5 mt-5" id="result" hidden>
-    <h3>Result</h3>
-    <div id="results-div">
-    </div>
-</div>
-
-<!--
-LOAD MATHJAX
--->
-{% include mathjax.html %}
+{% include _partial/results_div.html mathjax="true" %}
