@@ -20,27 +20,37 @@ SUBMIT DATA
 <!--
 SUBMIT DATA
 -->
-<script src="/assets/scripts/matrix.bundle.js" type="application/javascript"></script>
+{% include _lib/matrix.html %}
+
 <script>
     const matrix_A = document.querySelector('#matrix-A');
 
     function process() {
-        let A = tableToArray(matrix_A);
+        let A_array = tableToArray(matrix_A);
+        let A = inbrowser_matrix.createMatrix(A_array.flat(), A_array.length, A_array.length)
+        let json = inbrowser_matrix.matrix_inverse(A)
 
-        alert('not yet')
+        // show result
+        results.hidden = false;
+
+        if (json.result != null) {
+            let A_inv = json.result.toArray();
+            results_div.innerHTML = `<p>@A^{-1} = ${matrixToLatex(A_inv)}@</p>
+            <p>@\\Leftrightarrow ${matrixToLatex(to_fractions(A_inv))}@</p>`
+            MathJax.typesetPromise();
+        } else {
+            results_div.innerHTML = json.error;
+        }
+    }
+
+    function to_fractions(A_inv) {
+        for (const i in A_inv) {
+            for (const j in A_inv[i]) {
+                A_inv[i][j] = mathjs.format(mathjs.fraction(A_inv[i][j]), { fraction: 'ratio' })
+            }
+        }
+        return A_inv;
     }
 </script>
 
-<!--
-PRINT API RESULT
--->
-<div class="p-3 border-color container fs-5 mt-5" id="result" hidden>
-    <h3>Result</h3>
-    <div id="results-div">
-    </div>
-</div>
-
-<!--
-LOAD MATHJAX
--->
-{% include mathjax.html %}
+{% include _partial/results_div.html mathjax="true" %}
