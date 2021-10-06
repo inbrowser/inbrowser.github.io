@@ -53,7 +53,7 @@ layout: default
             let c1 = { re: Number(real_part_1_f.value), im: Number(imaginary_part_1_f.value) };
             let c2 = undefined;
 
-            if (type_f.value === 'sum' || type_f.value === 'prod') {
+            if (type_f.value === 'sum' || type_f.value === 'product') {
                 c2 = { re: Number(real_part_2_f.value), im: Number(imaginary_part_2_f.value) };
             }
 
@@ -68,7 +68,7 @@ layout: default
             let res = null;
             switch (type_f.value) {
                 case 'sum': res = inbrowser_algebra.addComplex(c1, c2); break;
-                case 'prod': res = inbrowser_algebra.multiplyComplex(c1, c2); break;
+                case 'product': res = inbrowser_algebra.multiplyComplex(c1, c2); break;
                 case 'inverse': res = inbrowser_algebra.getInverse(c1); break;
                 case 'negative': res = inbrowser_algebra.getNeg(c1); break;
                 case 'conjugate': res = inbrowser_algebra.getConjugate(c1); break;
