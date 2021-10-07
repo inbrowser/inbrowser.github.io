@@ -1,0 +1,117 @@
+---
+title: Markdown editor
+layout: default
+---
+
+<h1 class="text-center text-color">{{ page.title }}</h1>
+
+<!-- the editor, with some default content -->
+<label for="editor"></label>
+<textarea id="editor" class="border-color text-color"># Title of your document
+Tenetur culpa et **molestiae** ut eos excepturi voluptas laboriosam. Totam quos ipsam aut fuga aspernatur quia. Dicta omnis vitae velit quaerat pariatur ut quia. Non beatae dolore autem eius maxime enim. Sapiente ipsam facilis esse quibusdam. Cupiditate quaerat nesciunt cupiditate quia qui.
+
+Some image ![some notes and a pen](https://cdn.jsdelivr.net/gh/memorize-code/memorize-references/.assets/icons/icon64.png) and a [link](https://memorize.be/).
+
+## 1. Chapter
+
+### 1.1. Section
+
+Voluptatem ***similique*** consequatur numquam vero *voluptate* quia. Blanditiis praesentium exercitationem perspiciatis tempora voluptatum. Beatae amet est suscipit rerum incidunt qui voluptate ✨.
+
+> Maiores autem aut consequatur et explicabo. Libero laboriosam beatae qui est. Animi rerum quia non tempore deleniti cumque eum libero. Sit laboriosam repellendus nam autem vero sunt cumque. Est molestiae est in architecto. Perspiciatis numquam et et blanditiis atque perferendis.`
+
+Some `inline code`, and a code block
+
+```c
+int main(void) {}
+```
+
+| Column 1 | Column 2 | Column 3 |
+| -------- | -------- | -------- |
+| Text     | Text      | Text     |</textarea>
+
+<!------
+LOADING STYLE AND SCRIPTS
+------->
+
+<!-- style -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+<style>/* adding a black border */.EasyMDEContainer {border: 1px solid var(--border-color);}</style>
+
+<!-- loading scripts -->
+<!-- editor -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/3.0.0/marked.min.js"
+        integrity="sha512-+yBiQ6q3TDGoiassGMt28VYghfGBtA74mN2W8oNTCi49BsvmBfOSoMMGRj6TYRV7CF2URkpyS61uJBgC3H/uzA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+<!-- highlight -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/atom-one-light.min.css" integrity="sha512-o5v54Kh5PH0dgnf9ei0L+vMRsbm5fvIvnR/XkrZZjN4mqdaeH7PW66tumBoQVIaKNVrLCZiBEfHzRY4JJSMK/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js" integrity="sha512-W7EehcwtSbRF63FIQlXEOOd5mnq0Et0V0nUOvwcUvjnCKgOLLYbqriQxEQSp63sfrkryxIg/A/O8v8O18QwQCQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/languages/markdown.min.js" integrity="sha512-Lmg3a4KgIQndIrJwCCxPhhFl3jRzJVlrgU+JZGAaa1i0yGJucdDw9IntkpDiCc4gAPdOUH8luSpW4UHgBprZ3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    marked.setOptions({
+        highlight: function (code, language) {
+            if (language && hljs.getLanguage(language)) {
+                return hljs.highlight(code, { language: language, format: 'html' }).value;
+            } else {
+                return hljs.highlightAuto(code).value;
+            }
+        }
+    });
+
+    const editor = new EasyMDE({
+        autofocus: true,
+        element: document.getElementById("editor"),
+        forceSync: true,
+        indentWithTabs: true,
+        maxHeight: "700px",
+        insertTexts: {
+            horizontalRule: ["", "\n\n-----\n\n"],
+            table: ["", "\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text      | Text     |\n\n"],
+        },
+        lineWrapping: true,
+        parsingConfig: {
+            allowAtxHeaderWithoutSpace: false,
+            strikethrough: true,
+            underscoresBreakWords: true,
+        },
+        placeholder: "Some content here...",
+        shortcuts: { drawTable: "Cmd-Alt-T" },
+        showIcons: [ "code", "table", "horizontal-rule"],
+        spellChecker: true,
+        status: ["autosave", "lines", "words", "cursor", {
+            className: "keystrokes",
+            defaultValue: function(el) {
+                this.keystrokes = 0;
+                el.innerHTML = "0 Keystrokes";
+            },
+            onUpdate: function(el) {
+                el.innerHTML = ++this.keystrokes + " Keystrokes";
+            },
+        }], // Another optional usage, with a custom status bar item that counts keystrokes
+        styleSelectedText: true,
+        sideBySideFullscreen: false,
+        syncSideBySidePreviewScroll: true,
+        tabSize: 4,
+        toolbar: [
+            'bold', 'italic', 'heading',
+            '|',
+            'code', 'quote', 'unordered-list', 'ordered-list',
+            '|',
+            'link', 'image', 'table', 'horizontal-rule',
+            '|',
+            'side-by-side', {
+                name: "guide",
+                action: "https://memorize.be/tools/markdown",
+                className: "fa fa-question-circle",
+                title: "Syntax",
+            }, 'undo', 'redo',
+        ],
+        toolbarTips: true,
+        previewRender: function(plainText) {
+             // Returns HTML from a custom parser
+            return marked(plainText);
+        },
+    });
+    editor.toggleSideBySide();
+</script>
