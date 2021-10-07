@@ -10,12 +10,87 @@ layout: default
 
     <input type="file" name="upload" oninput="process()">
 
-    {% include upload_csv.html %}
+    <details class="mt-3 border-color p-3">
+        <summary>Options</summary>
 
+        <table class="table border-color table-bordered table-striped mt-3">
+            <tr>
+                <td><label for="have_header">The first line is the name of the columns</label></td>
+                <td><input id="have_header" type="checkbox" checked></td>
+            </tr>
+            <tr>
+                <td><label for="delimiter">Separator</label></td>
+                <td><select id="delimiter">
+                    <option name="">autodetect</option>
+                    <option name=" ">space</option>
+                    <option name=",">comma (,)</option>
+                    <option name=";">semi-colon  (;)</option>
+                    <option name=":">colon  (;)</option>
+                </select></td>
+            </tr>
+        </table>
+    </details>
+
+
+
+    <div class="mt-3 text-end">
+        <button onclick="process()">Submit</button>
+    </div>
+
+    {% include upload_csv.html %}
+    {% include d3.html %}
     <script>
+        const delimiter = document.querySelector('#delimiter')
         async function process() {
-            const csv = await parseCSVToJson("input")
-            console.log(csv)
+            let sep = delimiter.selectedOptions.item(0).getAttribute('name');
+            const csv = await parseCSVToJson("input", sep)
+            if (csv.data == null) {
+                results.hidden = false;
+                results_div.innerHTML = 'CSV missing';
+                return;
+            }
+            let have_header = document.getElementById('have_header');
+            if(have_header.checked){
+                for(let i=0; i < csv.data.length;i++){
+                    if (csv.data[0].length !== csv.data[i].length){
+                        results.hidden = false;
+                        results_div.innerHTML = 'CSV format is flawed';
+                        return;
+                    }
+                }
+            }
+            let headers = [];
+            if(!have_header.checked) {
+                if(csv.data[0] !== undefined) {
+                    for (let i = 0; i < csv.data[0].length; i++) {
+                        headers.push("Column "+(i+1))
+                    }
+                }
+            }
+            results.hidden = false;
+            const plot = await c3.generate({
+                bindto: results_div,
+                data:{
+                    rows: [] = csv.data,
+                },
+                axis: {
+                    x: {
+                        //type: 'category'
+                    }
+                },
+
+                zoom: {
+                    enabled: true
+                }
+            });
+
+            console.log(plot);
+            console.log(csv.data);
+
         }
     </script>
+
 </div>
+
+
+{% include _partial/results_div.html %}
