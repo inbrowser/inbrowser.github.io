@@ -88,9 +88,10 @@ layout: default
 
                 for (let i = 0; i < headers.length; i++) {
                     const header = headers[i];
-                    const mean = res.empirical_mean.shift();
-                    const variance = res.empirical_variance.shift();
-                    const std_deviation = res.empirical_std_deviation.shift();
+                    // if calculated, then ...
+                    const mean = res.empirical_mean === false ? null : res.empirical_mean.shift();
+                    const variance = res.empirical_variance === false ? null : res.empirical_variance.shift();
+                    const std_deviation = res.empirical_std_deviation === false ? null : res.empirical_std_deviation.shift();
 
                     let bundle = {error: false, text: ""};
 
@@ -112,6 +113,7 @@ layout: default
                 }
                 results_div.innerHTML = `<table class="table border-color table-bordered table-striped"><thead><tr>${columns}</tr></thead><tbody>${body}</tbody></table>`
             } catch (e) {
+                console.log(e)
                 results_div.innerHTML = 'Dataset is empty.';
             }
         }
@@ -119,10 +121,15 @@ layout: default
         function checkResultAndAppend(value, bundle) {
             let type = typeof value;
             if (type !== "boolean") {
-                if (type === "string") { // error
-                    bundle.error = true;
+                if (value != null) {
+                    if (type === "string") { // error
+                        bundle.error = true;
+                    }
+                    bundle.text += `<td>${value}</td>`;
+                } else {
+                    // not calculated
+                    bundle.text += `<td>x</td>`;
                 }
-                bundle.text += `<td>${value}</td>`;
                 return bundle;
             }
         }
