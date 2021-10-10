@@ -78,11 +78,12 @@ layout: default
                 }
             }
 
-            let res = inbrowser_statistics.getSummary(csv.data, options);
-            // show
-            results.hidden = false;
-            results_div.innerHTML = '';
             try {
+                let res = inbrowser_statistics.getSummary(csv.data, options);
+                // show
+                results.hidden = false;
+                results_div.innerHTML = '';
+
                 let columns = '<th>Column</th><th>Empirical mean</th><th>Empirical variance</th><th>Empirical square deviation</th>';
                 let body = `<tr><td colspan="4" class="text-center"><b>Number of records</b>: ${csv.data.length}</td></tr>`;
 
@@ -113,8 +114,7 @@ layout: default
                 }
                 results_div.innerHTML = `<table class="table border-color table-bordered table-striped"><thead><tr>${columns}</tr></thead><tbody>${body}</tbody></table>`
             } catch (e) {
-                console.log(e)
-                results_div.innerHTML = 'Dataset is empty.';
+                results_div.innerHTML = e.message;
             }
         }
 

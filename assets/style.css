@@ -68,3 +68,29 @@ blockquote p {
     margin-top: 10px;
     padding: 5px 10px;
 }
+
+.pointer {
+    cursor: pointer;
+}
+
+.tab-link.active {
+    background: transparent !important;
+    border: 0 !important;
+    font-weight: bold;
+}
+
+.tab-link:not(.active) {
+    color: var(--text-color) !important;
+    border: 0 !important;
+    font-weight: normal !important;
+}
+
+.nav-tabs {
+    border: 0 !important;
+    /* border-bottom: 1px solid #0e78e2; */
+}
+
+.tab-pane {
+    padding: 1.25rem!important;
+    border: 1px solid var(--border-color);
+}

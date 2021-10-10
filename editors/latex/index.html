@@ -1,0 +1,227 @@
+---
+title: Latex math editor
+layout: default
+---
+
+<h1 class="text-center text-color">{{ page.title }}</h1>
+
+<p class="text-center text-color">
+    We are using KaTeX 13.18, and, as of now, we do not support environments that they do not.
+    <!-- List here: https://katex.org/docs/supported.html -->
+</p>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item h5"><a href="#symbols" class="nav-link tab-link active" data-bs-toggle="tab">Symbols</a></li>
+    <li class="nav-item h5"><a href="#formulas" class="nav-link tab-link" data-bs-toggle="tab">Formulas</a></li>
+    <li class="nav-item h5"><a href="#letters" class="nav-link tab-link" data-bs-toggle="tab">Letters</a></li>
+    <li class="nav-item h5"><a href="#special" class="nav-link tab-link" data-bs-toggle="tab">Special</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane fade" id="formulas">
+        <table class="table mb-0 table-borderless">
+            <tr>
+                <th>Basic</th>
+                <td>$x^{7*3}$</td>
+                <td>$\frac{a}{b}$</td>
+                <td>$\sqrt{25}$</td>
+                <td>$x_i$</td>
+                <td>$\int_{a}^{b} x $</td>
+                <td>$\lim_{a \rightarrow b} x$</td>
+            </tr>
+            <tr>
+                <th>Systems</th>
+                <td>$\begin{pmatrix}
+                    a&b\\
+                    b&d
+                    \end{pmatrix}$</td>
+                <td>$\begin{bmatrix}
+                    a&b\\
+                    b&d
+                    \end{bmatrix}$</td>
+                <td>$\begin{vmatrix}
+                    a&b\\
+                    b&d
+                    \end{vmatrix}$</td>
+                <td>$\begin{cases}
+                    ax + by & = 0 \\
+                    ax + by & = 0 \\
+                    \end{cases}$</td>
+                <td>$\begin{cases}
+                    a &\text{if } b \\
+                    c &\text{if } d
+                    \end{cases}$</td>
+            </tr>
+            <tr>
+                <th>Sets</th>
+                <td>$\sum_{a}^{b} x $</td>
+                <td>$\prod_{a}^{b} x $</td>
+                <td>$\bigcap_{a}^{b} x $</td>
+                <td>$\bigcup_{a}^{b} x $</td>
+                <td>$\bigvee_{a}^{b} x $</td>
+                <td>$\coprod_{a}^{b} x $</td>
+            </tr>
+        </table>
+    </div>
+    <div class="tab-pane fade" id="letters">
+        <table class="table mb-0 table-borderless">
+            <tr>
+                <th>alpha</th><th>beta</th><th>chi</th><th>gamma</th>
+                <th>Gamma</th><th>delta</th><th>Delta</th><th>epsilon</th><th>eta</th>
+            </tr>
+            <tr>
+                <td>$\alpha$</td><td>$\beta$</td><td>$\chi$</td>
+                <td>$\gamma$</td><td>$\Gamma$</td><td>$\delta$</td><td>$\Delta$</td><td>$\epsilon$</td><td>$\eta$</td>
+            </tr>
+            <tr>
+                <th>kappa</th><th>lambda</th><th>Lambda</th><th>mu</th><th>nu</th><th>omega</th>
+                <th>Omega</th><th>pi</th><th>Pi</th><th>phi</th><th>Phi</th>
+            </tr>
+            <tr>
+                <td>$\kappa$</td><td>$\lambda$</td><td>$\Lambda$</td><td>$\mu$</td><td>$\nu$</td>
+                <td>$\omega$</td><td>$\Omega$</td><td>$\pi$</td><td>$\Pi$</td>
+                <td>$\phi$</td><td>$\Phi$</td>
+            </tr>
+            <tr>
+                <th>psi</th><th>Psi</th><th>rho</th><th>sigma</th><th>Sigma</th>
+                <th>tau</th><th>Tau</th><th>theta</th><th>Theta</th><th>upsilon</th><th>Upsilon</th>
+            </tr>
+            <tr>
+                <td>$\psi$</td><td>$\Psi$</td><td>$\rho$</td><td>$\sigma$</td><td>$\Sigma$</td>
+                <td>$\tau$</td><td>$\Tau$</td><td>$\theta$</td><td>$\Theta$</td><td>$\upsilon$</td><td>$\Upsilon$</td>
+            </tr>
+            <tr>
+                <th>varepsilon</th><th>varpi</th><th>varphi</th><th>varrho</th><th>varsigma</th>
+                <th>vartheta</th><th>xi</th><th>Xi</th><th>zeta</th>
+            </tr>
+            <tr>
+                <td>$\varepsilon$</td><td>$\varpi$</td><td>$\varphi$</td><td>$\varrho$</td><td>$\varsigma$</td>
+                <td>$\vartheta$</td><td>$\xi$</td><td>$\Xi$</td><td>$\zeta$</td>
+            </tr>
+        </table>
+    </div>
+    <div class="tab-pane fade show active" id="symbols">
+        <table class="table mb-0 table-borderless">
+            <tr>
+                <th>Common</th>
+                <td>$\leftrightarrow$</td>
+                <td>$\Leftrightarrow$</td>
+                <td>$\cap$</td>
+                <td>$\cup$</td>
+            </tr>
+            <tr>
+                <th>Comparison</th>
+                <td>$\lt$</td>
+                <td>$\le$</td>
+                <td>$=$</td>
+                <td>$\approx$</td>
+                <td>$\neq$</td>
+                <td>$\ge$</td>
+                <td>$\gt$</td>
+            </tr>
+            <tr>
+                <th>Advanced</th>
+                <td>$\to$</td>
+                <td>$\gets$</td>
+                <td>$\mid$</td>
+                <td>$\in$</td>
+                <td>$\notin$</td>
+                <td>$\subset$</td>
+                <td>$\supset$</td>
+                <td>$\empty$</td>
+            </tr>
+            <tr>
+                <th>Letters</th>
+                <td>$a^{\prime}$</td>
+                <td>$\tilde{a}$</td>
+                <td>$\dot{a}$</td>
+                <td>$\hat{\theta}$</td>
+                <td>$\vec{F}$</td>
+                <td>$\mathring{g}$</td>
+                <td>$\bar{y}$</td>
+            </tr>
+            <tr>
+                <th>Arrows</th>
+                <td>$\Overrightarrow{AB}$</td>
+                <td>$\overleftarrow{AB}$</td>
+                <td>$\underrightarrow{AB}$</td>
+                <td>$\underleftarrow{AB}$</td>
+                <td>$\overrightharpoon{ac}$</td>
+                <td>$\overleftharpoon{ac}$</td>
+                <td>$\overline{AB}$</td>
+                <td>$\underline{AB}$</td>
+            </tr>
+            <tr>
+                <th>Effects</th>
+                <td>$\cancel{5}$</td>
+                <td>$\bcancel{5}$</td>
+                <td>$\xcancel{ABC}$</td>
+                <td>$\sout{abc}$</td>
+                <td>$a \stackrel{text}{=} b$</td>
+            </tr>
+        </table>
+    </div>
+    <div class="tab-pane fade" id="special">
+        <table class="table mb-0 table-borderless">
+            <tr>
+                <th>Samples</th>
+                <td>$\overbrace{a+b+c}^{\text{note}}$</td>
+            </tr>
+            <tr>
+                <th>Text</th>
+                <td>$\textbf{bold}$</td>
+                <td>$\textit{italic}$</td>
+                <td>$\text{normal}$</td>
+                <td>$\mathbb{E}$</td>
+                <td>$\mathcal{H}$</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- the editor, with some default content -->
+<label for="editor"></label>
+<textarea id="editor" class="border-color text-color">\begin{pmatrix}
+a&b\\
+b&d
+\end{pmatrix}</textarea>
+
+<!-- math -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.18/katex.min.css" integrity="sha512-nii0D5CrWiLjtPcfU3pQJifaRLxKKVut/hbsazsodCcIOERZbwLH7dQxzOKy3Ey/Fv8fXCA9+Rf+wQzqklbEJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.18/katex.min.js" integrity="sha512-DAZH0Wu7q9Hnm0Fw8tRZsTeQBzIugiUy6k2r7E0KKMlC2nBvvrNSH/LVnGueCXRfDs5epP+Ieoh3L+VzSKi0Aw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.18/contrib/auto-render.min.js" integrity="sha512-CzIEOUs11SQ7tekLhEe5gil9kDip4RTJZVf7pSjlxOdVaYYHEcQflhunPz2Q/onNC4slL9jpKjvNgzPAAxEpew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [{left: '$', right: '$', display: false}],
+            throwOnError : false
+        });
+        let all_tds = document.querySelectorAll("td")
+        all_tds.forEach((e) => {
+            e.classList.add("pointer")
+            e.onclick = () => {
+                appendCode(e.querySelector("annotation").innerHTML.replaceAll("&amp;", "&"))
+            }
+        })
+    });
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+<style>/* adding a black border */.EasyMDEContainer {border: 1px solid var(--border-color);}
+.editor-preview, .CodeMirror { background: transparent !important;border-bottom-color: var(--border-color) !important; }
+.editor-preview { border-left-color: var(--border-color) !important;}
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/codemirror.min.css" integrity="sha512-6sALqOPMrNSc+1p5xOhPwGIzs6kIlST+9oGWlI4Wwcbj1saaX9J3uzO3Vub016dmHV7hM+bMi/rfXLiF5DNIZg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/codemirror.min.js" integrity="sha512-w8mdbtlkBpU0p/dbFb4Oa1Hfd5k2mvOX82w0FnArHOPB28Ixai1Uj68X/3aK+/+35zNbTzBf9OfuSG+XTwnwCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/keymap/sublime.min.js" integrity="sha512-CB1k89Ilzxp1upm9MpHjWR0Ec2wg/OzDfWC/pmjJkDnxmXMl4AhgZ4bYPdkWjlL6NoLfoZppxHf55hunUgg8wQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/addon/selection/mark-selection.min.js" integrity="sha512-aXjUoHbqle1lI5soSDU7OwjhVGBmenxiMyvaIEGI6mZUUyzSdxuqB1BrttHOSUa3/FenY6+qdZXNWkl0iy/x4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/assets/scripts/latexeditor.js"></script>
+
+<script>
+    const editor = new LatexEditor({
+        element: document.getElementById("editor"),
+        maxHeight: "700px",
+        placeholder: "Some content here..."
+	});
+    toggleSideBySide(editor);
+</script>
