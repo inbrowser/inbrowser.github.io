@@ -167,17 +167,26 @@ function LatexEditor(options) {
 
 	// Add default preview rendering function
 	options.previewRender = function(plainText) {
-		return katex.renderToString(plainText, {
-			"displayMode":true,
-			"leqno":false,
-			"fleqn":false,
-			"throwOnError":false,
-			"errorColor":"#cc0000",
-			"strict":"error",
-			"output":"html",
-			"trust":true
-		}) // replace \\\\ with a new line
-			.replaceAll("<span class=\"mspace\"></span><span class=\"mspace\"></span>", "<br>");
+		plainText = plainText.replaceAll('\\\\\\\\', '\\newline')
+		plainText = plainText.replaceAll('\n', '')
+
+		let html = "";
+
+		// parse each expression
+		for (const expr of plainText.split('\\newline')) {
+			html += katex.renderToString(expr, {
+				"displayMode": true,
+				"leqno":false,
+				"fleqn": true,
+				"throwOnError":false,
+				"errorColor":"#cc0000",
+				"strict":"error",
+				"output":"html",
+				"trust": true
+			});
+		}
+
+		return html;
 	};
 
 	// Set default options for parsing config
@@ -396,7 +405,7 @@ LatexEditor.prototype.toTextArea = function () {
 	cm.toTextArea();
 };
 
-function _toggleBlock(editor, type, start_chars) {
+function _toggleBlock(editor, start_chars) {
 	if (/editor-preview-active/.test(editor.codemirror.getWrapperElement().lastChild.className))
 		return;
 
@@ -420,7 +429,6 @@ function _toggleBlock(editor, type, start_chars) {
 
 function appendCode(code=false) {
 	if (code === false) return;
-	let cm = editor.codemirror;
 	// _replaceSelection(cm, code);
-	_toggleBlock(editor, 'bold', code)
+	_toggleBlock(editor, code)
 }

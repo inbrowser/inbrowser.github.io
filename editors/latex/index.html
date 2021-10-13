@@ -141,7 +141,7 @@ layout: default
             </tr>
             <tr>
                 <th>Arrows</th>
-                <td>$\Overrightarrow{AB}$</td>
+                <td>$\overrightarrow{AB}$</td>
                 <td>$\overleftarrow{AB}$</td>
                 <td>$\underrightarrow{AB}$</td>
                 <td>$\underleftarrow{AB}$</td>
@@ -183,7 +183,9 @@ layout: default
 <textarea id="editor" class="border-color text-color">\begin{pmatrix}
 a&b\\
 b&d
-\end{pmatrix}</textarea>
+\end{pmatrix}
+\newline
+a \stackrel{text}{=} b</textarea>
 
 <!-- math -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.18/katex.min.css" integrity="sha512-nii0D5CrWiLjtPcfU3pQJifaRLxKKVut/hbsazsodCcIOERZbwLH7dQxzOKy3Ey/Fv8fXCA9+Rf+wQzqklbEJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -208,7 +210,7 @@ b&d
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
 <style>/* adding a black border */.EasyMDEContainer {border: 1px solid var(--border-color);}
 .editor-preview, .CodeMirror { background: transparent !important;border-bottom-color: var(--border-color) !important; }
-.editor-preview { border-left-color: var(--border-color) !important;}
+.editor-preview { border-left-color: var(--border-color) !important; overflow-wrap: normal; overflow: auto; }
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/codemirror.min.css" integrity="sha512-6sALqOPMrNSc+1p5xOhPwGIzs6kIlST+9oGWlI4Wwcbj1saaX9J3uzO3Vub016dmHV7hM+bMi/rfXLiF5DNIZg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
