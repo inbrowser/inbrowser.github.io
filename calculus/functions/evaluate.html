@@ -108,9 +108,12 @@ Preview
      */
     function updatePreview() {
         try {
-            function_preview.innerHTML = `\\[${mathjs.parse(function_field.value)}\\]`
+            let r = `\\[${mathjs.parse(function_field.value)}\\]`
+            r = r.replaceAll('(', '{')
+            r = r.replaceAll(')', '}')
+            r = r.replaceAll('sqrt', '\\sqrt');
+	        function_preview.innerHTML = r;
         } catch(e) {
-            console.log(e.message)
             function_preview.innerHTML =
                 `<mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" tabindex="0" ctxtmenu_counter="4" style="font-size: 113.1%; position: relative;"><mjx-math display="true" class="MJX-TEX" aria-hidden="true" style="margin-left: 0px; margin-right: 0px;"><mjx-merror data-mjx-error="${e.message}"><mjx-mtext style="font-family: MJXZERO, serif;"><mjx-utext variant="-explicitFont" style="font-size: 88.4%; padding: 0.848em 0px 0.226em;">${e.message}</mjx-utext></mjx-mtext></mjx-merror></mjx-math><mjx-assistive-mml unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><merror data-mjx-error="${e.message}"><mtext>${e.message}</mtext></merror></math></mjx-assistive-mml></mjx-container>`
         }
