@@ -47,7 +47,10 @@ SUBMIT DATA
     function to_fractions(A_inv) {
         for (const i in A_inv) {
             for (const j in A_inv[i]) {
-                A_inv[i][j] = mathjs.format(mathjs.fraction(A_inv[i][j]), { fraction: 'ratio' })
+				let v = A_inv[i][j];
+				if (v !== 0 && (v = mathjs.fraction(v)).d !== 1) {
+					A_inv[i][j] = mathjs.format(v, { fraction: 'ratio' })
+                }
             }
         }
         return A_inv;
