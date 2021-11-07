@@ -1,0 +1,97 @@
+---
+title: Image to PDF - Converter
+layout: default
+---
+
+<!-- AUTHORS: QuentinRa (https://github.com/QuentinRa)
+              DataSaiyentist (https://github.com/DataSaiyentist) -->
+
+<h1 class="text-center text-color" xmlns="http://www.w3.org/1999/html">{{ page.title }}</h1>
+
+<p class="text-center text-color">
+    We are using PDF-LIB 1.17 (create PDF).
+</p>
+
+<script src="https://unpkg.com/pdf-lib"></script>
+
+<div class="p-3 border-color container fs-5 mt-5">
+
+    <h5 class="h4 pb-3">Please, select an image such as JPG or PNG</h5>
+    <input type="file" name="file" id="fileID" multiple>
+
+    <div class="mt-3 text-end">
+        <button onclick="createPdf()">Submit</button>
+    </div>
+
+</div>
+
+<iframe id="pdf" style="min-height: 600px; width: 100%;"></iframe>
+
+<!-- create the PDF with the given image -->
+<script>
+    async function createPdf() {
+        const Uploadfile = document.querySelector("#fileID").files;
+
+        // Create a new PDF file
+        const pdfDoc = await PDFLib.PDFDocument.create();
+
+        const n = Uploadfile.length;
+        for (let i = 0; i < n; i++) {
+
+            const file = Uploadfile[i];
+            const ImageBytes = await file.arrayBuffer();
+
+            let fileImage;
+
+            if (file.type === "image/jpg") {
+                fileImage = await pdfDoc.embedJpg(ImageBytes);
+            } else if (file.type === "image/png") {
+                fileImage = await pdfDoc.embedPng(ImageBytes);
+            }
+
+            // Get the width/height of the image
+            const fileDims = fileImage.scale(1);
+
+            // Create a blank page
+            const page = pdfDoc.addPage();
+
+            let height;
+            let width;
+
+            // PDF page dimensions
+            const MAXHEIGHT = page.getHeight();
+            const MAXWIDTH = page.getWidth();
+
+            // We take into account difficult cases (both height and width are very high)
+            let verif = 0;
+            if (fileDims.width > MAXWIDTH && fileDims.height > MAXHEIGHT) {
+                if (fileDims.height > fileDims.width) {
+                    verif = 1;
+                } else {
+                    verif = 2
+                }
+            }
+
+            if (fileDims.height > MAXHEIGHT || verif === 1) {
+                height = MAXHEIGHT;
+                width = Math.ceil(fileDims.width / fileDims.height * height);
+            }
+            if (fileDims.width > MAXWIDTH || verif === 2) {
+                width = MAXWIDTH;
+                height = Math.ceil(fileDims.height / fileDims.width * width);
+            }
+
+            page.drawImage(fileImage, {
+                x: page.getWidth() / 2 - width / 2,
+                y: page.getHeight() / 2 - height / 2,
+                width: width,
+                height: height
+            });
+        }
+
+        const pdfDataUri = await pdfDoc.saveAsBase64({dataUri: true});
+        document.getElementById('pdf').src = pdfDataUri;
+
+    }
+</script>
+
