@@ -13,7 +13,7 @@ layout: default
     <details class="mt-3 border-color p-3">
         <summary>Options</summary>
 
-        <table class="table border-color table-bordered table-striped mt-3">
+        <table  class="table border-color table-bordered table-striped mt-3">
             <tr>
                 <td><label for="have_header">The first line is the name of the columns</label></td>
                 <td><input id="have_header" type="checkbox" checked></td>
@@ -28,27 +28,56 @@ layout: default
                     <option name=":">colon  (;)</option>
                 </select></td>
             </tr>
+            <tr>
+                <td><label for="graphType">Graph Type</label></td>
+                <td>
+                    <select id="graphType" onchange="changeGraphType()">
+                        <option name="line">Line</option>
+                        <option name="spline">Spline</option>
+                        <option name="step">Step</option>
+                        <option name="area">Area</option>
+                        <option name="area-step">Area-step</option>
+                        <option name="area-spline">Area-spline</option>
+                    </select>
+                </td>
+            </tr>
+            <tr id="xAxisRow" hidden=true>
+                <td><label for="xAxis">X Axis</label></td>
+                <td>
+                    <select id="xAxis" onchange="process()">//onchange="changeXAxisFunc()"
+                        <option name="">None</option>
+                    </select>
+                </td>
+            </tr>
         </table>
     </details>
-
-
 
     <div class="mt-3 text-end">
         <button onclick="process()">Submit</button>
     </div>
 
     {% include upload_csv.html %}
-    {% include d3.html %}
+    {% include d3-c3.html %}
     <script>
+        let plot ;
+        let csv;
         const delimiter = document.querySelector('#delimiter')
+        let graphType = document.querySelector('#graphType')
+        const xAxis = document.querySelector('#xAxis');
+        const xAxisRow = document.querySelector('#xAxisRow');
+        let selectedXAxis;
+        let selectedGraphType;
         async function process() {
             let sep = delimiter.selectedOptions.item(0).getAttribute('name');
-            const csv = await parseCSVToJson("input", sep)
+            selectedXAxis = xAxis.selectedOptions.item(0).getAttribute('name');
+            selectedGraphType = graphType.selectedOptions.item(0).getAttribute('name');
+            csv = await parseCSVToJson("input", sep);
             if (csv.data == null) {
                 results.hidden = false;
                 results_div.innerHTML = 'CSV missing';
                 return;
             }
+
             let have_header = document.getElementById('have_header');
             if(have_header.checked){
                 for(let i=0; i < csv.data.length;i++){
@@ -59,6 +88,7 @@ layout: default
                     }
                 }
             }
+
             let headers = [];
             if(!have_header.checked) {
                 if(csv.data[0] !== undefined) {
@@ -66,30 +96,72 @@ layout: default
                         headers.push("Column "+(i+1))
                     }
                 }
+                csv.data.unshift(headers);
+            }else{
+                headers = csv.data[0]
             }
+
+            // Deleting the potentially already existing xAxis options
+            let childrenNb = xAxis.length;
+            for(let i = 1; i < childrenNb; i++){
+                xAxis.removeChild(xAxis.children[xAxis.length-1]);
+            }
+
+            // Adding every possible data to the xAxis options
+            for(let i = 0 ; i < headers.length ; i++){
+                let opt = document.createElement('option');
+                opt.innerHTML = headers[i];
+                opt.setAttribute('name', headers[i]);
+                xAxis.appendChild(opt)
+            }
+            xAxisRow.hidden = false;
+
             results.hidden = false;
-            const plot = await c3.generate({
+            plot = await c3.generate({
                 bindto: results_div,
                 data:{
+                    x:selectedXAxis,
                     rows: [] = csv.data,
+                    type:selectedGraphType,
                 },
                 axis: {
                     x: {
-                        //type: 'category'
-                    }
+                        label: {
+                            text: selectedXAxis,
+                            position: 'center'
+                        }
+                    },
                 },
-
                 zoom: {
                     enabled: true
                 }
             });
+        }
+        function changeGraphType() {
+            selectedGraphType = graphType.selectedOptions.item(0).getAttribute('name');
+            switch (selectedGraphType){
+                case 'line':
+                    plot.transform('line');
+                    break;
+                case 'spline':
+                    plot.transform('spline');
+                    break;
+                case 'step':
+                    plot.transform('step');
+                    break;
+                case 'area':
+                    plot.transform('area');
+                    break;
+                case 'area-step':
+                    plot.transform('area-step');
+                    break;
+                case 'area-spline':
+                    plot.transform('area-spline');
+                    break;
 
-            console.log(plot);
-            console.log(csv.data);
-
+            }
         }
     </script>
-
 </div>
 
 
