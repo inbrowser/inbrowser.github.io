@@ -8,15 +8,7 @@ layout: default
 	We are using DropZone v5 (file upload), jszip 3.7 (zip), and FileSaver 2.0 (save).
 </p>
 
-<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
-<style>
-	.dropzone .dz-preview .dz-progress { z-index: 0; }
-	.dropzone { background: inherit !important; }
-</style>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js" integrity="sha512-xQBQYt9UcgblF6aCMrwU1NkVA7HCXaSN2oq0so80KO+y68M+n64FOcqgav4igHe6D5ObBLIf68DWv+gfBowczg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" integrity="sha512-Qlv6VSKh1gDKGoJbnyA5RMXYcvnpIqhO++MhIM2fStMcGT9i2T//tSwYFlcyoRRDcDZ+TYHpH8azBBCyhpSeqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% include dropzone.html message="Click or drop files here" %}
 
 <div>
 	<div class="dropzone mt-5" id="dropzone"></div>
@@ -45,23 +37,11 @@ layout: default
 	</div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js" integrity="sha512-xQBQYt9UcgblF6aCMrwU1NkVA7HCXaSN2oq0so80KO+y68M+n64FOcqgav4igHe6D5ObBLIf68DWv+gfBowczg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" integrity="sha512-Qlv6VSKh1gDKGoJbnyA5RMXYcvnpIqhO++MhIM2fStMcGT9i2T//tSwYFlcyoRRDcDZ+TYHpH8azBBCyhpSeqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-	const files = []; // files
 	const archiveType = document.querySelector("#type") // zip
 	const archiveJob = document.querySelector("#job") // archive/extract
-
-	Dropzone.options.dropzone = {
-		autoProcessQueue: false,
-		uploadMultiple: true,
-		url: () => undefined, // bypass check
-		dictDefaultMessage: "Drop files here",
-		// maxFilesize: 2, parallelUploads: 100, maxFiles: 100,
-
-		accept(file, done) {
-			files.push(file);
-			return done();
-		}
-	};
 
 	async function onSubmit() {
 		// archiveType.value

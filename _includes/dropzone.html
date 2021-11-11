@@ -1,0 +1,23 @@
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+<style>
+    .dropzone .dz-preview .dz-progress { z-index: 0; }
+    .dropzone { background: inherit !important; }
+</style>
+
+<script>
+	const files = []; // files
+
+	Dropzone.options.dropzone = {
+		autoProcessQueue: false,
+		uploadMultiple: true,
+		url: () => undefined, // bypass check
+		dictDefaultMessage: "{{ include.message }}",
+		// maxFilesize: 2, parallelUploads: 100, maxFiles: 100,
+
+		accept(file, done) {
+			files.push(file);
+			return done();
+		}
+	};
+</script>
