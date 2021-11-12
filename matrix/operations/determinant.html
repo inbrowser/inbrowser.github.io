@@ -1,0 +1,43 @@
+---
+title: Determinant - Matrix-related tools
+layout: default
+---
+
+<h1 class="text-center text-color">{{ page.title }}</h1>
+{% include _credits/maths.html %}
+
+<!--
+SUBMIT DATA
+- A
+-->
+<div class="p-3 border-color container fs-5 mt-5">
+	{% include _math/input_matrix.html modifier="A" generate="true" square_matrix="true" %}
+
+	<div class="mt-3 text-end">
+		<button onclick="process()">Submit</button>
+	</div>
+</div>
+
+{% include _lib/matrix.html %}
+
+<script>
+	const matrix_A = document.querySelector('#matrix-A');
+
+	function process() {
+		let A_array = tableToArray(matrix_A);
+		let A = inbrowser_matrix.createMatrix(A_array.flat(), A_array.length, A_array.length)
+		let json = inbrowser_matrix.matrix_determinant(A)
+
+		// show result
+		results.hidden = false;
+
+		if (json.result != null) {
+			results_div.innerHTML = `<p>@det(A) = ${json.result}@</p>`
+			MathJax.typesetPromise();
+		} else {
+			results_div.innerHTML = json.error;
+		}
+	}
+</script>
+
+{% include _partial/results_div.html mathjax="true" %}
