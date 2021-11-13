@@ -35,12 +35,18 @@ layout: default
             %}
 
             <hr>
-            <h1 class="col-12 text-center">Solve Ax=b</h1>
+            <h1 class="col-12 text-center">Solver</h1>
 
             {% include _partial/tool_card.html
             title="LU factorization"
             content="Calculate AX=b using the LU factorization."
             href="solve-system/lu.html"
+            %}
+
+            {% include _partial/tool_card.html
+            title="Evaluate AX=Y"
+            content="Calculate AX=Y."
+            href="solve-system/ax=y.html"
             %}
         </div>
     </div>
