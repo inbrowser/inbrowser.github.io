@@ -1,5 +1,7 @@
 <h3 class="text-color">Fill your matrix {{ include.modifier }}</h3>
 
+<script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
+
 <!--
 ASK FOR THE SIZE
 -->
@@ -9,6 +11,11 @@ ASK FOR THE SIZE
         <label for="size-{{ include.modifier }}" class="text-color">Size</label>
         <input type="number" id="size-{{ include.modifier }}" oninput="regenerateSquareMatrix('{{ include.modifier }}')" value="3"
                style="max-width: 50px">
+
+        <div class="file-input d-inline border-color p-1 rounded ms-3">
+            <input type="file" id="file-{{ include.modifier }}" class="file" oninput="triggerFill(this, '{{ include.modifier }}')">
+            <label for="file-{{ include.modifier }}" title="Import">Import <i class="bi bi-box-arrow-in-down-left"></i></label>
+        </div>
     </li>
     {% else %}
     <li class="list-inline-item">
@@ -20,6 +27,10 @@ ASK FOR THE SIZE
         <label for="input-rows-{{ include.modifier }}" class="text-color">Rows</label>
         <input type="number" id="input-rows-{{ include.modifier }}" oninput="regenerateMatrix('{{ include.modifier }}')" value="4"
                style="max-width: 50px">
+    </li>
+    <li  class="file-input d-inline border-color p-1 rounded ms-3">
+        <input type="file" id="file-2-{{ include.modifier }}" class="file" oninput="triggerFill(this, '{{ include.modifier }}')">
+        <label for="file-2-{{ include.modifier }}" title="Import">Import <i class="bi bi-box-arrow-in-down-left"></i></label>
     </li>
     {% endif %}
 </ul>
@@ -41,3 +52,54 @@ ASK FOR THE SIZE
     regenerateMatrix("{{ include.modifier }}", "");
 </script>
 {% endif %}
+
+<script>
+    async function triggerFill(fileInput, modifier) {
+        const file = fileInput.files[0];
+        fileInput.labels[0].innerText = "Wait";
+        fileInput.disabled = true;
+        const worker = Tesseract.createWorker();
+        await worker.load();
+        await worker.loadLanguage('eng');
+        await worker.initialize('eng');
+        const { data: { text } } = await worker.recognize(file);
+        await worker.terminate();
+        parseTextToMatrix(text, modifier)
+        fileInput.labels[0].innerText = "Import";
+        fileInput.disabled = false;
+    }
+
+    function parseTextToMatrix(text, modifier) {
+        let parts = text.split(" ")
+        let matrix_Array = []
+
+        for (let part of parts) {
+            try {
+                if (part.includes('\n')) {
+                    part = part.split('\n');
+                    try {
+                        matrix_Array.push(getAsNumber(part[0]))
+                    } catch {}
+                    try {
+                        matrix_Array.push(getAsNumber(part[1]))
+                    } catch {}
+                } else {
+                    matrix_Array.push(getAsNumber(part))
+                }
+            } catch {}
+        }
+        console.debug(matrix_Array)
+        fillMatrixWithValues(matrix_Array, modifier);
+    }
+
+    function getAsNumber(ocrText) {
+        let res;
+        if (ocrText.includes(",") || ocrText.includes(".")) {
+            res = parseFloat(ocrText.trim().replace(",", "."))
+        } else {
+            res = parseInt(ocrText.trim())
+        }
+        if (isNaN(res)) throw new Error();
+        return res;
+    }
+</script>

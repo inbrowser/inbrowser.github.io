@@ -94,3 +94,13 @@ blockquote p {
     padding: 1.25rem!important;
     border: 1px solid var(--border-color);
 }
+
+.file {
+    opacity: 0;
+    width: 0.1px;
+    height: 0.1px;
+    position: absolute;
+}
+.file-input label {
+    cursor: pointer;
+}
