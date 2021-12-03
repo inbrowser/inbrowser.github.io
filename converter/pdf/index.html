@@ -8,111 +8,140 @@ layout: default
 
 <h1 class="text-center text-color">{{ page.title }}</h1>
 <p class="text-center text-color">
-    We are using DropZone v5 (file upload), and PDF-LIB 1.17 (create PDF).
+	We are using DropZone v5 (file upload), and PDF-LIB 1.17 (create PDF).
 </p>
 
 {% include dropzone.html message="Click or drop images (JPG or PNG) here" %}
 
 <div>
-    <div class="dropzone mt-5" id="dropzone"></div>
+	<div class="dropzone mt-5" id="dropzone"></div>
 
-    <div class="mt-3">
-        <table>
-            <tr>
-                <td><label for="show-preview"><b>Output</b></label></td>
-                <td class="ps-3">
-                    <select id="show-preview" type="checkbox" disabled>
-                        <option>Show file in browser</option>
-                        <option>Download</option>
-                    </select>
-                </td>
-            </tr>
-        </table>
+	<div class="mt-3">
+		<table>
+			<tr>
+				<td><label for="show-preview"><b>Output</b></label></td>
+				<td class="ps-3">
+					<select id="show-preview" type="checkbox" disabled>
+						<option>Show file in browser</option>
+						<option>Download</option>
+					</select>
+				</td>
+			</tr>
+		</table>
 
-        <button class="mt-3 float-end" onclick="onSubmit()">Process</button>
-    </div>
+		<button class="mt-3 float-end" onclick="onSubmit()">Process</button>
+	</div>
 </div>
 
 <script src="https://unpkg.com/pdf-lib"></script>
+
+<div class="p-3 border-color text-color container fs-5 mt-5" id="error-div" hidden>
+	<h3>Errors</h3>
+	<div id="error-div-content">
+	</div>
+</div>
 
 <iframe id="pdf" style="min-height: 600px; width: 100%;" hidden></iframe>
 
 <!-- create the PDF with the given image -->
 <script>
-    const displayDiv = document.getElementById('pdf');
+	const displayDiv = document.getElementById('pdf');
+	const errorsDiv = document.getElementById('error-div');
+	const errorDivContent = document.getElementById('error-div-content');
 
-    async function onSubmit() {
-        const UploadedFiles = files;
-        console.log(files)
+	async function onSubmit() {
+		const UploadedFiles = files;
+		if (files.length === 0) {
+			showErrors(["No files."]);
+			return;
+		}
 
-        // Create a new PDF file
-        const pdfDoc = await PDFLib.PDFDocument.create();
+		// Create a new PDF file
+		const pdfDoc = await PDFLib.PDFDocument.create();
+		let errors = [];
+		let empty = true;
 
-        const n = UploadedFiles.length;
-        for (let i = 0; i < n; i++) {
+		const n = UploadedFiles.length;
+		for (let i = 0; i < n; i++) {
+			const file = UploadedFiles[i];
+			const ImageBytes = await file.arrayBuffer();
 
-            const file = UploadedFiles[i];
-            const ImageBytes = await file.arrayBuffer();
+			let fileImage;
+			if (file.type === "image/jpg" || file.type === "image/jpeg") {
+				fileImage = await pdfDoc.embedJpg(ImageBytes);
+			} else if (file.type === "image/png") {
+				fileImage = await pdfDoc.embedPng(ImageBytes);
+			} else {
+				errors.push(`Not supported file type: "${file.type}"`);
+				continue;
+			}
 
-            let fileImage;
-            if (file.type === "image/jpg") {
-                fileImage = await pdfDoc.embedJpg(ImageBytes);
-            } else if (file.type === "image/png") {
-                fileImage = await pdfDoc.embedPng(ImageBytes);
-            } else {
-                console.error(`Not supported file type: "${file.type}"`)
-                continue;
-            }
+			// Get the width/height of the image
+			const fileDims = fileImage.scale(1);
 
-            // Get the width/height of the image
-            const fileDims = fileImage.scale(1);
+			// Create a blank page
+			const page = pdfDoc.addPage();
 
-            // Create a blank page
-            const page = pdfDoc.addPage();
+			let height;
+			let width;
 
-            let height;
-            let width;
+			// PDF page dimensions
+			const MAX_HEIGHT = page.getHeight();
+			const MAX_WIDTH = page.getWidth();
 
-            // PDF page dimensions
-            const MAX_HEIGHT = page.getHeight();
-            const MAX_WIDTH = page.getWidth();
+			// We take into account difficult cases (both height and width are very high)
+			let verification = 0;
+			if (fileDims.width > MAX_WIDTH && fileDims.height > MAX_HEIGHT) {
+				if (fileDims.height > fileDims.width) {
+					verification = 1;
+				} else {
+					verification = 2
+				}
+			}
+			if (fileDims.height > MAX_HEIGHT || verification === 1) {
+				height = MAX_HEIGHT;
+				width = Math.ceil(fileDims.width / fileDims.height * height);
+			}
+			if (fileDims.width > MAX_WIDTH || verification === 2) {
+				width = MAX_WIDTH;
+				height = Math.ceil(fileDims.height / fileDims.width * width);
+			}
+			// patch
+			if (width == null || height == null) {
+				width = fileDims.width;
+				height = fileDims.height;
+			}
 
-            // We take into account difficult cases (both height and width are very high)
-            let verification = 0;
-            if (fileDims.width > MAX_WIDTH && fileDims.height > MAX_HEIGHT) {
-                if (fileDims.height > fileDims.width) {
-                    verification = 1;
-                } else {
-                    verification = 2
-                }
-            }
-            if (fileDims.height > MAX_HEIGHT || verification === 1) {
-                height = MAX_HEIGHT;
-                width = Math.ceil(fileDims.width / fileDims.height * height);
-            }
-            if (fileDims.width > MAX_WIDTH || verification === 2) {
-                width = MAX_WIDTH;
-                height = Math.ceil(fileDims.height / fileDims.width * width);
-            }
-            // patch
-            if (width == null || height == null) {
-                width = fileDims.width;
-                height = fileDims.height;
-            }
+			const options = {
+				x: page.getWidth() / 2 - width / 2,
+				y: page.getHeight() / 2 - height / 2,
+				width: width,
+				height: height
+			};
+			page.drawImage(fileImage, options);
+			empty = false;
+		}
 
-            const options = {
-                x: page.getWidth() / 2 - width / 2,
-                y: page.getHeight() / 2 - height / 2,
-                width: width,
-                height: height
-            };
-            console.log(options)
-            page.drawImage(fileImage, options);
-        }
+		showErrors(errors);
 
-        displayDiv.src = await pdfDoc.saveAsBase64( {dataUri: true} );
-        displayDiv.hidden = false;
+		if (!empty) {
+			displayDiv.src = await pdfDoc.saveAsBase64( {dataUri: true} );
+			displayDiv.hidden = false;
+		}
+	}
 
-    }
+	function showErrors(errors) {
+		if (errors.length === 0) {
+			errorsDiv.hidden = true;
+		} else {
+			errorsDiv.hidden = false;
+			let newContent = '<ul>';
+			for (const error of errors) {
+				newContent += `<li>${error}</li>`
+			}
+			newContent += "</ul>"
+			errorDivContent.innerHTML = newContent;
+		}
+	}
 </script>
 
