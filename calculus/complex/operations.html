@@ -75,7 +75,7 @@ layout: default
                 case 'conjugate': res = inbrowser_algebra.getConjugate(c1); break;
             }
             results.hidden = false;
-            results_div.innerHTML = `The result is <b>${res}</b>!`;
+            results_div.innerHTML = `The result is <b>${res.result}</b>!`;
         }
 
         function showError(msg) {

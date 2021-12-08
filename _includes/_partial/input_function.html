@@ -121,6 +121,7 @@ Preview
 			r = r.replaceAll('(', '{')
 			r = r.replaceAll(')', '}')
 			r = r.replaceAll('sqrt', '\\sqrt');
+			r = r.replaceAll('log', '\\log');
 			function_preview.innerHTML = r;
 		} catch(e) {
 			function_preview.innerHTML =

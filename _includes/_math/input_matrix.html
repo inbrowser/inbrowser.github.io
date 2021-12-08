@@ -65,7 +65,7 @@ ASK FOR THE SIZE
         const { data: { text } } = await worker.recognize(file);
         await worker.terminate();
         parseTextToMatrix(text, modifier)
-        fileInput.labels[0].innerText = "Import";
+        fileInput.labels[0].innerHTML = "Import <i class=\"bi bi-box-arrow-in-down-left\"></i>";
         fileInput.disabled = false;
     }
 
