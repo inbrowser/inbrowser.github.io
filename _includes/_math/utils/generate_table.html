@@ -60,5 +60,22 @@
         }
         return array;
     }
+
+	function fillMatrixWithValues(array, modifier="") {
+		const table = document.getElementById("matrix-"+modifier)
+		array = array.reverse();
+
+		for (const row of table.rows) {
+			if (row.hidden) continue;
+
+			for (const cell of row.cells) {
+				if (cell.hidden) continue;
+
+				cell.children[0].value = array.pop();
+
+				if (array.length === 0) return; // done
+			}
+		}
+	}
 </script>
 {% endif %}
