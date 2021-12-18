@@ -1,6 +1,6 @@
 # InBrowser
 
-**Version**: **3.1.0-alpha**
+**Version**: **4.0.0-alpha**
 
 The goal is to provide as many tools as possible, for free, without ads, open-source, and without using a server, so the **magic is happening in your browser**.
 
