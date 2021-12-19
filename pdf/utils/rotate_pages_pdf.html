@@ -1,0 +1,92 @@
+---
+title: Rotate pages from PDF | InBrowser online tools
+layout: default
+---
+
+<!-- AUTHORS: QuentinRa (https://github.com/QuentinRa)
+              DataSaiyentist (https://github.com/DataSaiyentist) -->
+
+{% include _partial/title.html title="Rotate pages from PDF" %}
+{% include _external/credits/pdflib.html %}
+{% include _external/dropzone.html message="Click or drop one PDF here" %}
+
+<div>
+	<div class="dropzone mt-5" id="dropzone"></div>
+
+	<label class="form-label mt-3">
+		<b class="fs-5 pe-3">Pages to rotate <i class="bi bi-arrow-clockwise"></i></b>
+		<input class="input-pdf-pages-field" id="ignored-pages" type="text" value="1,2">
+	</label>
+	<br>
+	<label class="form-label mt-3">
+		<b class="fs-5 pe-3">Number of rotation (90° clockwise)</b>
+		<select id="number-of-rotations">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+		</select>
+	</label>
+
+	<div>
+		<button class="mt-3 float-end btn btn-dark btn-outline-dark text-light mb-3" onclick="onSubmit()">Process</button>
+	</div>
+</div>
+
+{% include _partial/pdf/base.html input="true" %}
+
+<!-- create the PDF with the given image -->
+<script>
+	const pages_to_rotate = document.querySelector('#ignored-pages');
+	const number_of_rotations = document.querySelector('#number-of-rotations');
+
+	async function doJob(pdfDoc, UploadedFiles) {
+		const rotatePages = pages_to_rotate.value.split(",");
+		const rotation = number_of_rotations.value * 90;
+		let errors = [];
+		let empty = true;
+
+		// checks
+		if (UploadedFiles.length !== 1) errors.push("Can only process one file.");
+		if (rotatePages === []) errors.push("Warning: no pages to rotate.");
+
+		// try to do the job
+		if (errors.length === 0) {
+			// check type
+			const file = UploadedFiles[0];
+			if (file.type !== 'application/pdf') {
+				errors.push(`Not supported file type: "${file.type}"`);
+			} else {
+				const existingPdfBytes = await file.arrayBuffer();
+				const otherDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+				const totalPages = otherDoc.getPageCount();
+				const pagesIndices = [];
+				for (let extractedPage of rotatePages) {
+					extractedPage = Number(extractedPage) - 1;
+					if (extractedPage >= 0 && extractedPage < totalPages) {
+						pagesIndices.push(extractedPage);
+					} else {
+						errors.push(`Invalid page index: "${extractedPage+1}"`);
+					}
+				}
+				if (pagesIndices !== []) {
+					const copiedPages = await pdfDoc.copyPages(otherDoc, otherDoc.getPageIndices())
+					for (let i = 0; i < copiedPages.length; i++) {
+						const p = copiedPages[i];
+
+						// apply rotation?
+						if (pagesIndices.includes(i)) {
+							p.setRotation(PDFLib.degrees(rotation));
+							empty = false;
+						}
+
+						pdfDoc.addPage(p);
+					}
+				}
+			}
+		}
+
+		return {errors, empty, pdfDoc};
+	}
+</script>
+

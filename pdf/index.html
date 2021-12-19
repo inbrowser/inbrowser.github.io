@@ -11,7 +11,7 @@ layout: default
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 {% include _partial/tool_card.html
                 title="Image to PDF"
-                content="Convert several kinds of image files to PDF"
+                content="Convert several kinds of image files to a PDF"
                 href="convert/image2pdf.html"
                 icon="card-image"
                 %}
@@ -22,9 +22,15 @@ layout: default
                 icon="file-earmark-pdf"
                 %}
                 {% include _partial/tool_card.html
-                title="Extract pages from PDF"
+                title="Extract pages from a PDF"
                 content="Extract pages from your pdf."
                 href="utils/extract_pages_pdf.html"
+                icon="file-earmark-pdf"
+                %}
+                {% include _partial/tool_card.html
+                title="Rotate pages of a PDF"
+                content="Generate a new PDF after applying a rotation on some pages."
+                href="utils/rotate_pages_pdf.html"
                 icon="file-earmark-pdf"
                 %}
             </div>
