@@ -1,41 +1,33 @@
 ---
-title: Calculus-related tools
+title: Calculus tools | InBrowser
 layout: default
 ---
 
 <section class="mb-5">
     <div class="container">
         <div class="row fs-5 text-color">
-            <h1 class="col-12 text-center">{{ page.title }}</h1>
+            <h1 class="col-12 text-center">Calculus tools</h1>
 
-            <p class="">&nbsp;</p>
-
-            {% include _partial/tool_card.html
-            title="Evaluate function"
-            content="Get the result of a function, given parameters."
-            href="functions/evaluate.html"
-            %}
-
-            {% include _partial/tool_card.html
-            title="Primitive function"
-            content="Calculate the primitive function."
-            href="functions/primitive.html"
-            %}
-
-            {% include _partial/tool_card.html
-            title="Derivative function"
-            content="Calculate the derivative of a function."
-            href="functions/derivative.html"
-            %}
-
-            <hr>
-            <h1 class="col-12 text-center">Complex numbers</h1>
-
-            {% include _partial/tool_card.html
-            title="Complex number"
-            content="Operations on complex numbers"
-            href="complex/operations.html"
-            %}
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% include _partial/tool_card.html
+                title="Calculator"
+                content="Do some calculations."
+                href="calculator.html"
+                icon="calculator"
+                %}
+<!--                { % include _partial/tool_card.html-->
+<!--                title="Evaluate function"-->
+<!--                content="Get the result of a function, given parameters."-->
+<!--                href="functions/evaluate.html"-->
+<!--                icon="calculator"-->
+<!--                % }-->
+<!--                { % include _partial/tool_card.html-->
+<!--                title="Complex number"-->
+<!--                content="Operations on complex numbers"-->
+<!--                href="complex/operations.html"-->
+<!--                icon="calculator"-->
+<!--                % }-->
+            </div>
         </div>
     </div>
 </section>

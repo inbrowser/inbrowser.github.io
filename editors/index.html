@@ -1,25 +1,27 @@
 ---
-title: Editors
+title: Editors | InBrowser
 layout: default
 ---
 
 <section class="mb-5">
     <div class="container">
         <div class="row fs-5 text-color">
-            <h1 class="col-12 text-center">{{ page.title }}</h1>
+            <h1 class="col-12 text-center">Editors</h1>
 
-            <p class="">&nbsp;</p>
-
-            {% include _partial/tool_card.html
-            title="Markdown editor"
-            content="Write Markdown in your browser."
-            href="markdown/index.html"
-            %}
-            {% include _partial/tool_card.html
-            title="LaTeX math editor"
-            content="Write math in LaTeX in your browser."
-            href="latex/index.html"
-            %}
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% include _partial/tool_card.html
+                title="Markdown editor"
+                content="Write Markdown in your browser."
+                href="markdown/index.html"
+                icon="file-text"
+                %}
+                {% include _partial/tool_card.html
+                title="LaTeX math editor"
+                content="Write math in LaTeX in your browser."
+                href="latex/index.html"
+                icon="files"
+                %}
+            </div>
         </div>
     </div>
 </section>
