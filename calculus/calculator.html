@@ -1,0 +1,67 @@
+---
+title: Calculator | InBrowser
+layout: default
+---
+
+{% include _partial/title.html title="Calculator" %}
+{% include _credits/maths.html %}
+
+<div class="p-3 border-color container fs-5 mt-0">
+    <!-- enter function -->
+    <div class="col form-control bg-transparent border-0">
+        <label for="function" class="pb-3 fs-5 text-color">Your expression</label>
+        <input type="text" value="sqrt(4) * 2^(10)" id="function" class="form-control mathjax_process" oninput="update()">
+    </div>
+    <div class="col form-control bg-transparent border-0">
+        <label for="function-review" class="pb-3 fs-5 text-color">Preview</label>
+        <p id="function-review" class="form-control" style="opacity: 0.8;"></p>
+    </div>
+    <div class="col form-control bg-transparent border-0">
+        <label for="function-result" class="pb-3 fs-5 text-color">Result</label>
+        <p id="function-result" class="form-control" style="opacity: 0.8;">???</p>
+    </div>
+</div>
+
+{% include mathjax.html %}
+{% include mathjs.html %}
+
+<!--
+Preview
+-->
+<script>
+    const function_field = document.querySelector('#function')
+    const function_preview = document.querySelector('#function-review')
+    const function_result = document.querySelector('#function-result')
+
+    function update() {
+        // update preview
+        try {
+            let r = `\\[${mathjs.parse(function_field.value)}\\]`
+            r = r.replaceAll('(', '{')
+            r = r.replaceAll(')', '}')
+            r = r.replaceAll('sqrt', '\\sqrt');
+            r = r.replaceAll('log', '\\log');
+            function_preview.innerHTML = r;
+        } catch(e) {
+            function_preview.innerHTML =
+                    `<mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" tabindex="0" ctxtmenu_counter="4" style="font-size: 113.1%; position: relative;"><mjx-math display="true" class="MJX-TEX" aria-hidden="true" style="margin-left: 0px; margin-right: 0px;"><mjx-merror data-mjx-error="${e.message}"><mjx-mtext style="font-family: MJXZERO, serif;"><mjx-utext variant="-explicitFont" style="font-size: 88.4%; padding: 0.848em 0px 0.226em;">${e.message}</mjx-utext></mjx-mtext></mjx-merror></mjx-math><mjx-assistive-mml unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><merror data-mjx-error="${e.message}"><mtext>${e.message}</mtext></merror></math></mjx-assistive-mml></mjx-container>`
+        }
+
+        try {
+            let r = `\\[${mathjs.evaluate(function_field.value)}\\]`
+            r = r.replaceAll('(', '{')
+            r = r.replaceAll(')', '}')
+            r = r.replaceAll('sqrt', '\\sqrt');
+            r = r.replaceAll('log', '\\log');
+            function_result.innerHTML = r;
+        } catch (e) {
+            function_result.innerHTML =
+                    `<mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" display="true" tabindex="0" ctxtmenu_counter="4" style="font-size: 113.1%; position: relative;"><mjx-math display="true" class="MJX-TEX" aria-hidden="true" style="margin-left: 0px; margin-right: 0px;"><mjx-merror data-mjx-error="${e.message}"><mjx-mtext style="font-family: MJXZERO, serif;"><mjx-utext variant="-explicitFont" style="font-size: 88.4%; padding: 0.848em 0px 0.226em;">${e.message}</mjx-utext></mjx-mtext></mjx-merror></mjx-math><mjx-assistive-mml unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><merror data-mjx-error="${e.message}"><mtext>${e.message}</mtext></merror></math></mjx-assistive-mml></mjx-container>`
+        }
+
+        // too soon, unneeded
+        if (MathJax.typesetPromise === undefined) return;
+        MathJax.typesetPromise();
+    }
+    update();
+</script>
