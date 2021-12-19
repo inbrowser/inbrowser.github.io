@@ -7,7 +7,9 @@ layout: default
 {% include _external/credits/maths.html %}
 
 <div class="p-3 border-color container fs-5 mt-0">
-    <!-- enter function -->
+    <!-- enter function
+     todo: handle fractions
+     -->
     <div class="col form-control bg-transparent border-0">
         <label for="function" class="pb-3 fs-5 text-color">Your expression</label>
         <input type="text" value="sqrt(4) * 2^(10)" id="function" class="form-control mathjax_process" oninput="update()">
