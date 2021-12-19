@@ -15,18 +15,20 @@ layout: default
                 href="calculator.html"
                 icon="calculator"
                 %}
-<!--                { % include _partial/tool_card.html-->
-<!--                title="Evaluate function"-->
-<!--                content="Get the result of a function, given parameters."-->
-<!--                href="functions/evaluate.html"-->
-<!--                icon="calculator"-->
-<!--                % }-->
-<!--                { % include _partial/tool_card.html-->
-<!--                title="Complex number"-->
-<!--                content="Operations on complex numbers"-->
-<!--                href="complex/operations.html"-->
-<!--                icon="calculator"-->
-<!--                % }-->
+
+                {% include _partial/tool_card.html
+                title="Evaluate Function"
+                content="You can write a function and evaluate it with some parameters."
+                href="functions.html"
+                icon="calculator"
+                %}
+
+                {% include _partial/tool_card.html
+                title="Complex Numbers"
+                content="You can do some operations on complex numbers."
+                href="complex.html"
+                icon="calculator"
+                %}
             </div>
         </div>
     </div>

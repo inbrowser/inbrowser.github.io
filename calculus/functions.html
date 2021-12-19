@@ -1,0 +1,112 @@
+---
+title: Evaluate Function | InBrowser
+layout: default
+---
+
+{% include _partial/title.html title="Evaluate Function" %}
+{% include _credits/maths.html %}
+
+<div class="p-3 border-color container fs-5 mt-5">
+	<!-- enter function -->
+	<div class="row mx-0">
+		<div class="col form-control bg-transparent border-0">
+			<label for="function" class="pb-3 fs-5 text-color">Your function</label>
+			<input type="text" value="x^2" id="function" class="form-control mathjax_process" oninput="update()">
+		</div>
+		<div class="col-3">
+			<table class="table table-bordered border-dark">
+				<tr>
+					<td>
+						<button class="btn border-color text-color" onclick="updateVariableFields(true)">
+							Add <i class="bi bi-patch-plus"></i>
+						</button>
+						<button class="btn border-color text-color" onclick="updateVariableFields(false)">
+							Remove <i class="bi bi-patch-minus"></i>
+						</button>
+					</td>
+				</tr>
+				<tbody id="variables">
+				<tr>
+					<td>
+						<label><input type="text" class="px-2 input-variable-field" value="x"
+						oninput="update()"></label>
+						=
+						<label><input class="input-variable-field" type="text" value="5"
+						              oninput="update()"></label>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="col form-control bg-transparent border-0">
+		<label for="function-review" class="pb-3 fs-5 text-color">Preview</label>
+		<p id="function-review" class="form-control" style="opacity: 0.8;"></p>
+	</div>
+
+	<div class="col form-control bg-transparent border-0">
+		<label for="function-result" class="pb-3 fs-5 text-color">Result</label>
+		<p id="function-result" class="form-control" style="opacity: 0.8;">???</p>
+	</div>
+</div>
+
+<script>
+	const inputFields = document.querySelector('#variables');
+
+	/**
+	 * Add/Remove variables
+	 */
+	function updateVariableFields(increase=true) {
+		let real_number_of_elements = inputFields.children.length;
+		let number_of_elements = 0
+		for (const child of inputFields.children) {
+			if (child.hidden) break;
+			number_of_elements++;
+		}
+
+		if (increase) {
+			// ex: two elements, 1 was hidden
+			// 1 != 2
+			// then children[1] is shown (=> both 0 and 1 are shown)
+			if (number_of_elements !== real_number_of_elements) {
+				// show back
+				inputFields.children[number_of_elements].hidden = false;
+			} else {
+				// create one
+				let li = document.createElement('tr');
+				li.innerHTML = "<td>" +
+					"<label><input type=\"text\" class=\"px-2 input-variable-field\" value=\"x\"" +
+					" oninput=\"update()\"></label>" +
+					"=" +
+					"<label><input class=\"input-variable-field\" type=\"text\" value=\"5\"" +
+					" oninput=\"update()\"></label>" +
+					"</td>";
+				inputFields.appendChild(li);
+			}
+		} else {
+			// we got something to remove
+			if (number_of_elements !== 0) {
+				inputFields.children[number_of_elements-1].hidden = true;
+			}
+		}
+
+		update();
+	}
+</script>
+
+<script>
+	function doOperation() {
+		// parse parameters
+		let li_tags = inputFields.children;
+		let variables = {}
+		for (const tags of li_tags) {
+			if (tags.hidden) continue;
+			variables[tags.children[0].children[0].children[0].value] =
+				tags.children[0].children[1].children[0].value;
+		}
+		return mathjs.evaluate(function_field.value, variables);
+	}
+</script>
+
+{% include _partial/calculus/function_utils.html %}

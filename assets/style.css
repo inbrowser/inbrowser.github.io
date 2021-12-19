@@ -109,4 +109,9 @@ body {
   background: rgba(255, 255, 255, 0.6);
 }
 
+/* a */
+.input-variable-field {
+  max-width: 50px !important;
+}
+
 /*# sourceMappingURL=style.css.map */

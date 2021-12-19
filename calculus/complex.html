@@ -1,9 +1,9 @@
 ---
-title: Complex number - Calculus-related tools
+title: Complex numbers | InBrowser
 layout: default
 ---
 
-<h1 class="text-center text-color">{{ page.title }}</h1>
+{% include _partial/title.html title="Complex numbers" %}
 {% include _credits/maths.html %}
 
 <div class="p-3 border-color container fs-5 mt-5">
@@ -22,17 +22,17 @@ layout: default
     <div class="row">
         <div class="col form-control bg-transparent border-0">
             <h4><b>Value 1</b></h4>
-            <label for="real1" class="pb-3 fs-5 text-color">Real part</label>
-            <p><input type="text" value="3" id="real1"></p>
+            <label for="real1" class=" pb-3 fs-5 text-color">Real part</label>
+            <p><input type="text" value="3" class="form-control" id="real1"></p>
             <label for="imaginary1" class="pb-3 fs-5 text-color">Imaginary part</label>
-            <p><input type="text" value="4" id="imaginary1"></p>
+            <p><input type="text" class="form-control" value="4" id="imaginary1"></p>
         </div>
         <div id="div2" class="col form-control bg-transparent border-0" hidden>
             <h4><b>Value 2</b></h4>
             <label for="real2" class="pb-3 fs-5 text-color">Real part</label>
-            <p><input type="text" value="3" id="real2"></p>
+            <p><input type="text" class="form-control" value="3" id="real2"></p>
             <label for="imaginary2" class="pb-3 fs-5 text-color">Imaginary part</label>
-            <p><input type="text" value="4" id="imaginary2"></p>
+            <p><input type="text" class="form-control" value="4" id="imaginary2"></p>
         </div>
     </div>
 
