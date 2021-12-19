@@ -64,6 +64,11 @@ body{padding-top:90px}
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+.input-pdf-pages-field {
+    @extend .input-variable-field;
+    max-width: 200px !important;
+}
+
 .file {
     opacity: 0;
     width: 0.1px;

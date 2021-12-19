@@ -1,3 +1,4 @@
+{% if include.input != "true" %}
 {% include _external/credits/pdflib.html %}
 
 {% include _external/dropzone.html %}
@@ -7,6 +8,7 @@
 
 	<button class="mt-3 float-end btn btn-dark btn-outline-dark text-light mb-3" onclick="onSubmit()">Process</button>
 </div>
+{% endif %}
 
 <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" integrity="sha512-Qlv6VSKh1gDKGoJbnyA5RMXYcvnpIqhO++MhIM2fStMcGT9i2T//tSwYFlcyoRRDcDZ+TYHpH8azBBCyhpSeqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

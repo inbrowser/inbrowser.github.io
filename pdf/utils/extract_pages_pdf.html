@@ -1,0 +1,71 @@
+---
+title: Extract pages from PDF | InBrowser online tools
+layout: default
+---
+
+<!-- AUTHORS: QuentinRa (https://github.com/QuentinRa)
+              DataSaiyentist (https://github.com/DataSaiyentist) -->
+
+{% include _partial/title.html title="Extract pages from PDF" %}
+{% include _external/credits/pdflib.html %}
+{% include _external/dropzone.html message="Click or drop one PDF here" %}
+
+<div>
+	<div class="dropzone mt-5" id="dropzone"></div>
+
+	<label class="form-label mt-3">
+		<b class="fs-5 pe-3">Extract pages <i class="bi bi-scissors"></i></b>
+		<input class="input-pdf-pages-field" id="ignored-pages" type="text" value="1,2">
+	</label>
+
+	<div>
+		<button class="mt-3 float-end btn btn-dark btn-outline-dark text-light mb-3" onclick="onSubmit()">Process</button>
+	</div>
+</div>
+
+{% include _partial/pdf/base.html input="true" %}
+
+<!-- create the PDF with the given image -->
+<script>
+	const ignored_pages = document.querySelector('#ignored-pages');
+
+	async function doJob(pdfDoc, UploadedFiles) {
+		const extractedPages = ignored_pages.value.split(",");
+		let errors = [];
+		let empty = true;
+
+		// checks
+		if (UploadedFiles.length !== 1) errors.push("Can only process one file.");
+		if (extractedPages === []) errors.push("Warning: no pages to extract.");
+
+		// try to do the job
+		if (errors.length === 0) {
+			// check type
+			const file = UploadedFiles[0];
+			if (file.type !== 'application/pdf') {
+				errors.push(`Not supported file type: "${file.type}"`);
+			} else {
+				const existingPdfBytes = await file.arrayBuffer();
+				const otherDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+				const totalPages = otherDoc.getPageCount();
+				const pagesIndices = [];
+				for (let extractedPage of extractedPages) {
+					extractedPage = Number(extractedPage) - 1;
+					if (extractedPage >= 0 && extractedPage < totalPages) {
+						pagesIndices.push(extractedPage);
+					} else {
+						errors.push(`Invalid page index: "${extractedPage+1}"`);
+					}
+				}
+				if (pagesIndices !== []) {
+					const copiedPages = await pdfDoc.copyPages(otherDoc, pagesIndices)
+					copiedPages.forEach((p) => pdfDoc.addPage(p))
+					empty = false;
+				}
+			}
+		}
+
+		return {errors, empty, pdfDoc};
+	}
+</script>
+
