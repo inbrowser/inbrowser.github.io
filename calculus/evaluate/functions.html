@@ -1,10 +1,10 @@
 ---
-title: Evaluate Function | InBrowser
+title: Evaluate Function | InBrowser online tools
 layout: default
 ---
 
 {% include _partial/title.html title="Evaluate Function" %}
-{% include _credits/maths.html %}
+{% include _external/credits/maths.html %}
 
 <div class="p-3 border-color container fs-5 mt-5">
 	<!-- enter function -->
@@ -78,7 +78,7 @@ layout: default
 				li.innerHTML = "<td>" +
 					"<label><input type=\"text\" class=\"px-2 input-variable-field\" value=\"x\"" +
 					" oninput=\"update()\"></label>" +
-					"=" +
+					" = " +
 					"<label><input class=\"input-variable-field\" type=\"text\" value=\"5\"" +
 					" oninput=\"update()\"></label>" +
 					"</td>";
@@ -86,7 +86,7 @@ layout: default
 			}
 		} else {
 			// we got something to remove
-			if (number_of_elements !== 0) {
+			if (number_of_elements !== 1) {
 				inputFields.children[number_of_elements-1].hidden = true;
 			}
 		}
