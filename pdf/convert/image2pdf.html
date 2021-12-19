@@ -7,39 +7,11 @@ layout: default
               DataSaiyentist (https://github.com/DataSaiyentist) -->
 
 {% include _partial/title.html title="Image to PDF" %}
-{% include _external/credits/pdflib.html %}
-
-{% include _external/dropzone.html message="Click or drop images (JPG or PNG) here" %}
-
-<div>
-	<div class="dropzone mt-5" id="dropzone"></div>
-
-	<button class="mt-3 float-end" onclick="onSubmit()">Process</button>
-</div>
-
-<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" integrity="sha512-Qlv6VSKh1gDKGoJbnyA5RMXYcvnpIqhO++MhIM2fStMcGT9i2T//tSwYFlcyoRRDcDZ+TYHpH8azBBCyhpSeqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<div class="p-3 border-color text-color container fs-5 mt-5" id="error-div" hidden>
-	<h3>Errors</h3>
-	<div id="error-div-content">
-	</div>
-</div>
+{% include _partial/pdf/base.html message="Click or drop images (JPG or PNG) here" %}
 
 <!-- create the PDF with the given image -->
 <script>
-	const errorsDiv = document.getElementById('error-div');
-	const errorDivContent = document.getElementById('error-div-content');
-
-	async function onSubmit() {
-		const UploadedFiles = files;
-		if (files.length === 0) {
-			showErrors(["No files."]);
-			return;
-		}
-
-		// Create a new PDF file
-		const pdfDoc = await PDFLib.PDFDocument.create();
+	async function doJob(pdfDoc, UploadedFiles) {
 		let errors = [];
 		let empty = true;
 
@@ -104,25 +76,7 @@ layout: default
 			empty = false;
 		}
 
-		showErrors(errors);
-
-		if (!empty) {
-			saveAs(await pdfDoc.saveAsBase64( {dataUri: true} ), "output.pdf");
-		}
-	}
-
-	function showErrors(errors) {
-		if (errors.length === 0) {
-			errorsDiv.hidden = true;
-		} else {
-			errorsDiv.hidden = false;
-			let newContent = '<ul>';
-			for (const error of errors) {
-				newContent += `<li>${error}</li>`
-			}
-			newContent += "</ul>"
-			errorDivContent.innerHTML = newContent;
-		}
+		return {errors, empty, pdfDoc};
 	}
 </script>
 

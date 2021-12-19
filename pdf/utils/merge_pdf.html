@@ -1,0 +1,38 @@
+---
+title: Merge PDF | InBrowser online tools
+layout: default
+---
+
+<!-- AUTHORS: QuentinRa (https://github.com/QuentinRa)
+              DataSaiyentist (https://github.com/DataSaiyentist) -->
+
+{% include _partial/title.html title="Merge PDF" %}
+{% include _partial/pdf/base.html message="Click or drop PDFs here" %}
+
+<!-- create the PDF with the given image -->
+<script>
+	async function doJob(pdfDoc, UploadedFiles) {
+		let errors = [];
+		let empty = true;
+
+		const n = UploadedFiles.length;
+		for (let i = 0; i < n; i++) {
+			const file = UploadedFiles[i];
+			if (file.type !== 'application/pdf') {
+				errors.push(`Not supported file type: "${file.type}"`);
+				continue;
+			}
+
+			const existingPdfBytes = await file.arrayBuffer();
+			const otherDoc = await PDFLib.PDFDocument.load(existingPdfBytes)
+			const copiedPages = await pdfDoc.copyPages(otherDoc, otherDoc.getPageIndices())
+			if (copiedPages !== []) {
+				copiedPages.forEach((p) => pdfDoc.addPage(p))
+				empty = false;
+			}
+		}
+
+		return {errors, empty, pdfDoc};
+	}
+</script>
+
